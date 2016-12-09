@@ -1,0 +1,21 @@
+{
+  "name": "booking",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile:coffee": "coffee --watch --compile *.coffee",
+    "run:casperjs": "onchange test.js -- casperjs test.js",
+    "start": "npm run compile:coffee & npm run run:casperjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "casperjs": "^1.1.3",
+    "moment": "^2.17.1"
+  },
+  "devDependencies": {
+    "onchange": "^3.2.0"
+  }
+}
