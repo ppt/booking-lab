@@ -51,13 +51,12 @@ casper.then(function(){
 
 casper.then(function(){
     this.echo('select date');
-    dumpFile('selectDate.html',this.getHTML());
     this.click('a.datePicker:nth-of-type('+testdate+')');
-    this.waitForSelector('tr.rowHasSpaces');
+    this.waitForSelector('table.ng-hide');
 });
 
 casper.then(function(){
-    this.waitForSelector('table tr.rowFull');
+    this.waitForSelector('table:not(.ng-hide)');
 });
 
 function getClass(s) {
@@ -105,14 +104,14 @@ casper.then(function() {
 
 casper.then(function() {
     this.echo('click booking');
-    dumpFile('clickBooking',this.getHTML());
+    dumpFile('clickBooking.html',this.getHTML());
     this.click('#modalBooking button[ng-click="vm.makeBooking()"]');
     this.waitForText('Great - we\'ve made that booking.');
 });
 
 casper.then(function() {
     this.echo('click ok');
-    dumpFile('clickOK',this.getHTML());
+    dumpFile('clickOK.html',this.getHTML());
     this.click('button[data-dismiss="modal"]');
 
 });
