@@ -15,7 +15,8 @@ function dumpFile(filename,value) {
 var casper = require("casper").create({
     verbose: true,
     // logLevel: 'debug',
-    // logLevel: 'error',
+    logLevel: 'error',
+    waitTimeout: 120000,
     pageSettings: {
         userAgent: 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
     }
@@ -26,6 +27,7 @@ var password = casper.cli.raw.get('password');
 var class_name = casper.cli.raw.get('classname');
 var class_time = casper.cli.raw.get('classtime');
 var testdate = 8;
+var row_select = -1;
 
 casper.start('https://mylocker.virginactive.co.th/#/login', function(){
     var s = this.getHTML('.welcome');
@@ -50,13 +52,21 @@ casper.then(function(){
 });
 
 casper.then(function(){
-    this.echo('select date');
-    this.click('a.datePicker:nth-of-type('+testdate+')');
-    this.waitForSelector('table.ng-hide');
+    this.waitForSelector('table.vaTable:not(.ng-hide)');
 });
 
 casper.then(function(){
-    this.waitForSelector('table:not(.ng-hide)');
+    this.echo('select date');
+    this.click('a.datePicker:nth-of-type('+testdate+')');
+    this.waitForSelector('table.vaTable.ng-hide');
+});
+
+casper.then(function(){
+    this.waitForSelector('a.datePicker:nth-of-type('+testdate+').active');
+});
+
+casper.then(function(){
+    this.waitForSelector('table.vaTable:not(.ng-hide)');
 });
 
 function getClass(s) {
@@ -91,21 +101,28 @@ function findClass(classes,class_name,class_time) {
 casper.then(function(){
     // dumpFile('screen1.html',this.getHTML('table'));
     this.echo('find class');
-    var index = findClass(getClass(this.getHTML('table')),class_name, class_time);
-    this.echo(index);
-    this.click('table tr:nth-of-type(' + (2+index*2) + ')');
-    this.waitForSelector('table tr.classDetailRow.active');
+    // dumpFile('findClass.html',this.getHTML());
+    row_select = findClass(getClass(this.getHTML('table')),class_name, class_time);
+    if(row_select == -1) {
+        dumpFile('findClass.html',this.getHTML());
+    }
+    this.echo(row_select);
+    this.click('table.table tbody tr:nth-of-type(' + (2 + row_select*2) + ')');
+    this.waitForSelector('table.table tbody tr:nth-of-type(' + (2 + row_select*2) + ').active');
 });
 
 casper.then(function() {
-    this.click('table tr.classDetailRow.active a[ng-click="vm.moreDetails(class)"]');
-    this.waitForSelector('#modalBooking button[ng-click="vm.makeBooking()"]');
+    this.echo('select class');
+    // dumpFile('clickSelect.html',this.getHTML());
+    this.click('table tr.classDetailRow.active a.memberBooking');
+    this.waitForSelector('#modalBooking.modal.fade.ng-scope.in .modal-footer button[ng-click="vm.makeBooking()"]:not(.ng-hide)');
+    // this.waitForSelector('#modalBooking button.vaRoundButton-Red[ng-click="vm.makeBooking()"]');
 });
 
 casper.then(function() {
-    this.echo('click booking');
+    this.echo('booking class');
     dumpFile('clickBooking.html',this.getHTML());
-    this.click('#modalBooking button[ng-click="vm.makeBooking()"]');
+    this.click('#modalBooking.modal.fade.ng-scope.in .modal-footer button[ng-click="vm.makeBooking()"]');
     this.waitForText('Great - we\'ve made that booking.');
 });
 
