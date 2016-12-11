@@ -3,14 +3,19 @@
 - booking : diff before click with date before
 */
 
+// var development = true;
+var development = false;
 function dumpFile(filename,value) {
-    var fs = require('fs');
-    fs.write(filename, value, 'w');
+    if (development) {
+        var fs = require('fs');
+        fs.write(filename, value, 'w');
+    }
 }
 
 var casper = require("casper").create({
     verbose: true,
-    logLevel: 'error',
+    // logLevel: 'debug',
+    // logLevel: 'error',
     pageSettings: {
         userAgent: 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
     }
@@ -47,8 +52,12 @@ casper.then(function(){
 casper.then(function(){
     this.echo('select date');
     dumpFile('selectDate.html',this.getHTML());
-    this.click('.datePicker:nth-of-type('+testdate+')');
-    this.waitForSelector('.classDetail');
+    this.click('a.datePicker:nth-of-type('+testdate+')');
+    this.waitForSelector('tr.rowHasSpaces');
+});
+
+casper.then(function(){
+    this.waitForSelector('table tr.rowFull');
 });
 
 function getClass(s) {
@@ -72,7 +81,7 @@ function findClass(classes,class_name,class_time) {
     // casper.echo('find class function');
     // casper.echo(class_time + ' ' + class_name);
     for(var i=0; i<classes.length; i++) {
-        casper.echo(classes[i].time + ' ' + classes[i].name);
+        // casper.echo(classes[i].time + ' ' + classes[i].name);
         if (classes[i].time === class_time.toLowerCase() && classes[i].name.indexOf(class_name.toLowerCase()) >= 0) {
             return i;
         }
