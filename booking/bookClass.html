@@ -1,0 +1,302 @@
+<!DOCTYPE html><html lang="en"><head><style type="text/css" id="alertifyCSS">.alertify,.alertify *,.alertify-logs>*,.alertify.show{box-sizing:border-box}.alertify-logs>*{color:#fff;box-shadow:0 2px 5px 0 rgba(0,0,0,.2);border-radius:1px}.alertify-logs>*,.alertify-logs>.default{background:rgba(0,0,0,.8)}.alertify-logs>.error{background:rgba(244,67,54,.8)}.alertify-logs>.success{background:rgba(76,175,80,.9)}.alertify{position:fixed;background-color:rgba(0,0,0,.3);left:0;right:0;top:0;bottom:0;width:100%;height:100%;z-index:99999}.alertify.hide{opacity:0;pointer-events:none}.alertify,.alertify.show{-webkit-transition:all .33s cubic-bezier(.25,.8,.25,1);transition:all .33s cubic-bezier(.25,.8,.25,1)}.alertify .dialog{padding:12px}.alertify .alert,.alertify .dialog{width:100%;margin:0 auto;position:relative;top:50%;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%)}.alertify .alert>*,.alertify .dialog>*{width:400px;max-width:95%;margin:0 auto;text-align:center;padding:12px;background:#fff;box-shadow:0 2px 4px -1px rgba(0,0,0,.14),0 4px 5px 0 rgba(0,0,0,.098),0 1px 10px 0 rgba(0,0,0,.084)}.alertify .alert .msg,.alertify .dialog .msg{padding:12px;margin:0;text-align:left}.alertify .alert input:not(.form-control),.alertify .dialog input:not(.form-control){margin-bottom:15px;width:100%;font-size:100%;padding:12px}.alertify .alert input:not(.form-control):focus,.alertify .dialog input:not(.form-control):focus{outline-offset:-2px}.alertify .alert nav,.alertify .dialog nav{text-align:right}.alertify .alert nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button),.alertify .dialog nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button){background:0 0;box-sizing:border-box;color:rgba(0,0,0,.87);position:relative;outline:0;border:0;display:inline-block;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;padding:0 6px;margin:6px 8px;line-height:36px;min-height:36px;white-space:nowrap;min-width:88px;text-align:center;text-transform:uppercase;font-size:14px;text-decoration:none;cursor:pointer;border-radius:2px}.alertify .alert nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button):active,.alertify .alert nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button):hover,.alertify .dialog nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button):active,.alertify .dialog nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button):hover{background-color:rgba(0,0,0,.05)}.alertify .alert nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button):focus,.alertify .dialog nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button):focus{border:1px dashed rgba(0,0,0,.1)}.alertify .alert nav button.btn,.alertify .dialog nav button.btn{margin:6px 4px}.alertify-logs{position:fixed;z-index:100}.alertify-logs.bottom,.alertify-logs:not(.top){bottom:16px}.alertify-logs.left,.alertify-logs:not(.right){left:16px}.alertify-logs.left>*,.alertify-logs:not(.right)>*{float:left;-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0);height:auto}.alertify-logs.left>.show,.alertify-logs:not(.right)>.show{left:0}.alertify-logs.left>*,.alertify-logs.left>.hide,.alertify-logs:not(.right)>*,.alertify-logs:not(.right)>.hide{left:-110%}.alertify-logs.right{right:16px}.alertify-logs.right>*{float:right;-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}.alertify-logs.right>.show{right:0;opacity:1}.alertify-logs.right>*,.alertify-logs.right>.hide{right:-110%;opacity:0}.alertify-logs.top{top:0}.alertify-logs>*{-webkit-transition:all .4s cubic-bezier(.25,.8,.25,1);transition:all .4s cubic-bezier(.25,.8,.25,1);position:relative;clear:both;-webkit-backface-visibility:hidden;backface-visibility:hidden;-webkit-perspective:1000;perspective:1000;max-height:0;margin:0;padding:0;overflow:hidden;opacity:0;pointer-events:none}.alertify-logs>.show{margin-top:12px;opacity:1;max-height:1000px;padding:12px;pointer-events:auto}</style><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+    <title>Virgin Active | MyLocker</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <meta name="format-detection" content="telephone=no">
+
+    <meta name="apple-mobile-web-app-title" content="mylocker">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/images/favicon/manifest.json">
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha256-3dkvEK0WLHRJ7/Csr0BZjAWxERc5WH7bdeUya2aXxdU= sha512-+L4yy6FRcDGbXJ9mPG8MT/3UCDzwR9gPeyFNMCtInsol++5m3bk2bXWKdZjvybmohrAsn3Ua5x8gfLnbE1YkOg==" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+    
+    <link href="/bundles/mylockercss?v=ozT0-D_v-fDuJBtX18vIMM3pBYrfWZWlRI08FNZT69k1" rel="stylesheet">
+    
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="cbp-spmenu-push ng-scope" ng-app="app" ng-class="{'cbp-spmenu-push-toleft' : appCtrl.sideMenuOpen}" ng-controller="ApplicationController as appCtrl">
+
+    <div class="splashScreen fadeAway" ng-class="{'fadeAway': appCtrl.applicationLoaded}">        
+        <img class="newLogo" src="/images/styling/virgin_active_logo_new@2x.png" alt="Virgin Active">
+    </div>
+
+    <!-- Off Canvas Menu -->
+<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu" ng-class="{'cbp-spmenu-open': appCtrl.sideMenuOpen}">
+    <h3>MY LOCKER</h3>
+    <img id="closeOffCanvasMenu" alt="Close" ng-click="appCtrl.closeMenu()" src="/images/styling/icon_close.svg" width="50" height="50">
+    <div class="menuContainer">
+        <a href="#/bookaclass" class="ng-binding">จองคลาส</a>
+        <a href="#/bookanactivity" class="ng-binding">จองกิจกรรม</a>
+        <a href="#/mybookings" class="ng-binding">การจองของฉัน</a>
+        <a href="#/news" class="ng-binding">ข่าวอัพเดต</a>
+        <a class="hidden-xss ng-binding" href="#/inviteafriend">เชิญเพื่อน</a>
+        <a class="hidden-xss ng-binding" href="#/bookingbuddies">booking buddies</a>
+        <a class="hidden-xss ng-binding" href="#/videos">วิดีโอ</a>
+        <a href="#/myaccount" class="ng-binding">รายละเอียดของฉัน</a>
+        <a href="" ng-click="appCtrl.logout()" class="ng-binding">ออกจากระบบ</a>
+        <a ng-click="appCtrl.switchLanguage()" ng-show="appCtrl.showSecondLanguage()" href="" class="language english" ng-class="{'thai': appCtrl.currentlySelectedLanguageISO() == 'en-TT', 'english': appCtrl.currentlySelectedLanguageISO() == 'th-TH'}">Switch Language</a>
+    </div>
+</nav>
+<!-- End Off Canvas Menu -->
+    <!-- Mobile Header -->
+<header class="mobile visible-xs">
+    <a class="vaLogo" href="#/"><img src="/images/styling/virgin_active_logo_new@2x.png" alt="Virgin Active"></a>
+    <a id="menu-toggle" ng-click="appCtrl.openMenu()" ng-class="{'active':appCtrl.sideMenuOpen}" ng-show="appCtrl.cuService.user.loggedIn()" class="ng-hide"><img alt="Menu" src="/images/styling/hamburger.svg"></a>
+</header>
+<!-- End Mobile Header -->
+
+<!-- Desktop Header -->
+<header class="desktop hidden-xs">
+    <a ng-click="appCtrl.switchLanguage()" ng-show="appCtrl.showSecondLanguage()" href="" class="topLink language english" ng-class="{'thai': appCtrl.currentlySelectedLanguageISO() == 'en-TT', 'english': appCtrl.currentlySelectedLanguageISO() == 'th-TH'}"></a>
+    <a ng-click="appCtrl.logout()" ng-show="appCtrl.cuService.user.loggedIn()" href="" class="topLink signin ng-hide"><span class="padlock ng-binding">ออกจากระบบ</span></a>
+
+    <div class="container">
+        <a class="vaLogo newLogo" href="#/"><img src="/images/styling/virgin_active_logo_new@2x.png" alt="Virgin Active"></a>
+
+        
+
+        <!-- Main Nav Bar -->
+        <nav class="navbar ng-hide" ng-show="appCtrl.cuService.user.loggedIn()">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav virgin-menu-left">
+                    <li><a href="#/mybookings" ng-class="{'active': appCtrl.route.current.$$route.section === 4}" class="ng-binding">การจองของฉัน</a></li>
+                    <li><a href="#/bookanactivity" ng-class="{'active': appCtrl.route.current.$$route.section === 3}" class="ng-binding">จองกิจกรรม</a></li>
+                    <li><a href="#/bookaclass" ng-class="{'active': appCtrl.route.current.$$route.section === 2}" class="ng-binding">จองคลาส</a></li>
+                </ul>
+                <ul class="nav navbar-nav virgin-menu-right">
+                    <li><a href="#/myaccount" ng-class="{'active': appCtrl.route.current.$$route.section === 8}"><span class="ng-binding">รายละเอียดของฉัน</span></a></li>
+                    <li><a href="#/news" ng-class="{'active': appCtrl.route.current.$$route.section === 1}"><span class="ng-binding">ข่าวอัพเดต</span></a></li>
+                    
+                    <li><a href="#/inviteafriend" ng-class="{'active': appCtrl.route.current.$$route.section === 7}" class="ng-binding">เชิญเพื่อน</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+<!-- End Desktop Header -->
+
+    <!-- Template Container -->
+    <!-- ngView:  --><div ng-view="" autoscroll="true" class="ng-scope"><page-header name="" randomclass="true" css="SmallNoTitle" class="ng-scope ng-isolate-scope"><div class="vaPageHeaderContainer SmallNoTitle">
+    <div class="vaSlantRight"></div>
+    <div class="vaPageHeader">
+        <div class="vaPageImageContatiner" style="background-image: url(https://hal.virginactive.co.th/api/classes/randomclassimage);">
+            <div class="valignText">
+                <h1 class="ng-binding"></h1>
+            </div>
+        </div>
+    </div>
+</div></page-header>
+
+<div class="container vaLogin vaTypography vaContainerPadding ng-scope">
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="inputContainer">
+
+                <!-- Login Form -->
+                <form class="vaFormControls ng-valid-minlength ng-valid-maxlength ng-valid-pattern ng-dirty ng-valid-parse ng-valid ng-valid-required" name="loginForm" ng-submit="vm.login()" ng-show="vm.mode == 0">
+                    <h3 class="ng-binding">เข้าสู่ระบบ</h3>
+
+                    <div class="alert alert-danger text-center ng-hide" ng-show="vm.errors.length &gt; 0">
+                        <!-- ngRepeat: error in vm.errors -->
+                    </div>                    
+
+                    <div class="form-group form-group-lg has-feedback has-success" ng-class="{'has-error': loginForm.memberID.$invalid &amp;&amp; loginForm.memberID.$touched, 'has-success': loginForm.memberID.$valid &amp;&amp; loginForm.memberID.$touched }">
+                        <label for="memberID" class="ng-binding">ชื่อ</label>
+                        <input ng-model="vm.model.memberID" class="form-control ng-valid-minlength ng-valid-maxlength ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched" name="memberID" id="memberID" type="text" ng-required="true" ng-minlength="1" ng-maxlength="25" required="required">
+                        <span class="form-control-feedback"></span>                        
+                        <div ng-messages="loginForm.memberID.$error" class="vaFormError ng-inactive" role="alert">
+                            <!-- ngMessage: required -->
+                            <!-- ngMessage: maxlength -->
+                            <!-- ngMessage: minlength -->
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-lg has-feedback has-success" ng-class="{'has-error': loginForm.password.$invalid &amp;&amp; loginForm.password.$touched, 'has-success': loginForm.password.$valid &amp;&amp; loginForm.password.$touched }">
+                        <label for="password" class="ng-binding">รหัสผ่าน</label>
+                        <input ng-model="vm.model.password" class="form-control ng-valid-pattern ng-valid-maxlength ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched" name="password" id="password" type="password" ng-required="true" ng-maxlength="25" pattern="[0-9]*" required="required">
+                        <span class="form-control-feedback"></span>                        
+                    </div>
+
+                    <div class="checkbox text-center">
+                        <input ng-model="vm.model.rememberMe" id="rememberMe" type="checkbox" class="ng-pristine ng-untouched ng-valid">
+                        <label for="rememberMe" class="ng-binding">จดจำฉันตลอดเวลา</label>
+                    </div>
+
+                    <p class="text-center">
+                        <br>
+                        <button type="submit" ng-hide="vm.ajaxRequest" ng-disabled="!loginForm.$valid" class="vaRoundButton vaRoundButton-Red ng-binding">เข้าสู่ระบบ</button>
+                        <ajax-loader ng-show="vm.ajaxRequest" class="ng-isolate-scope ng-hide"><div class="ajaxLoader"><img src="/Images/Styling/rolling.gif" width="28" height="28"></div></ajax-loader>
+                    </p>
+
+                    <p class="text-center">
+                        <a href="" ng-click="vm.mode = 1" class="ng-binding">ฉันลืมสิ่งเหล่านี้</a>
+                    </p>
+                    <p class="text-center" ng-show="appCtrl.showSecondLanguage()" style="margin-top: 20px;">
+                        <a ng-click="appCtrl.switchLanguage()" href="" class="language english" ng-class="{'thai': appCtrl.currentlySelectedLanguageISO() == 'en-TT', 'english': appCtrl.currentlySelectedLanguageISO() == 'th-TH'}">Switch Language</a>
+                    </p>
+                </form>
+                <!-- End Login Form-->
+
+                <!-- Forgotten Password Form -->
+                <form class="vaFormControls ng-pristine ng-invalid ng-invalid-required ng-valid-maxlength ng-valid-email ng-hide" name="forgottenForm" ng-submit="vm.forgotSubmit()" ng-show="vm.mode == 1">
+                    <h3 class="ng-binding">จดจำฉันตลอดเวลา</h3>
+
+                    <div class="form-group form-group-lg has-feedback" ng-class="{'has-error': forgottenForm.surname.$invalid &amp;&amp; forgottenForm.surname.$touched, 'has-success': forgottenForm.surname.$valid &amp;&amp; forgottenForm.surname.$touched }">
+                        <label for="surname" class="ng-binding">นามสกุล</label>
+                        <input ng-model="vm.resetModel.Surname" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-maxlength" name="surname" id="surname" type="text" ng-required="true" ng-maxlength="25" required="required">
+                        <span class="form-control-feedback"></span>
+
+                        <div ng-messages="forgottenForm.surname.$error" class="vaFormError ng-active" role="alert">
+                            <!-- ngMessage: required --><div ng-message="required" class="ng-binding ng-scope">กรุณาระบุนามสกุลค่ะ</div>
+                            <!-- ngMessage: maxlength -->
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-lg has-feedback" ng-class="{'has-error': forgottenForm.email.$invalid &amp;&amp; forgottenForm.email.$touched, 'has-success': forgottenForm.email.$valid &amp;&amp; forgottenForm.email.$touched }">
+                        <label for="email" class="ng-binding">อีเมล</label>
+                        <input ng-model="vm.resetModel.EmailAddress" class="form-control ng-pristine ng-untouched ng-valid-email ng-invalid ng-invalid-required ng-valid-maxlength" name="email" id="email" type="email" ng-required="true" ng-maxlength="100" required="required">
+                        <span class="form-control-feedback"></span>
+
+                        <div ng-messages="forgottenForm.email.$error" class="vaFormError ng-active" role="alert">
+                            <!-- ngMessage: required --><div ng-message="required" class="ng-binding ng-scope">กรุณาระบุอีเมลค่ะ</div>
+                            <!-- ngMessage: maxlength -->
+                            <!-- ngMessage: email -->
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-lg">
+                        <label class="ng-binding">วันที่และเดือนเกิด</label>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">                            
+                            <select class="virginSelect ng-pristine ng-untouched ng-valid" ng-model="vm.resetModel.Day" ng-options="day for day in vm.days"><option label="1" value="number:1" selected="selected">1</option><option label="2" value="number:2">2</option><option label="3" value="number:3">3</option><option label="4" value="number:4">4</option><option label="5" value="number:5">5</option><option label="6" value="number:6">6</option><option label="7" value="number:7">7</option><option label="8" value="number:8">8</option><option label="9" value="number:9">9</option><option label="10" value="number:10">10</option><option label="11" value="number:11">11</option><option label="12" value="number:12">12</option><option label="13" value="number:13">13</option><option label="14" value="number:14">14</option><option label="15" value="number:15">15</option><option label="16" value="number:16">16</option><option label="17" value="number:17">17</option><option label="18" value="number:18">18</option><option label="19" value="number:19">19</option><option label="20" value="number:20">20</option><option label="21" value="number:21">21</option><option label="22" value="number:22">22</option><option label="23" value="number:23">23</option><option label="24" value="number:24">24</option><option label="25" value="number:25">25</option><option label="26" value="number:26">26</option><option label="27" value="number:27">27</option><option label="28" value="number:28">28</option><option label="29" value="number:29">29</option><option label="30" value="number:30">30</option><option label="31" value="number:31">31</option></select>
+                        </div>
+                        <div class="col-sm-6">                            
+                            <select class="virginSelect ng-pristine ng-untouched ng-valid" ng-model="vm.resetModel.Month" ng-options="month.value as month.name for month in vm.months"><option label="Jan" value="number:1" selected="selected">Jan</option><option label="Feb" value="number:2">Feb</option><option label="Mar" value="number:3">Mar</option><option label="Apr" value="number:4">Apr</option><option label="May" value="number:5">May</option><option label="Jun" value="number:6">Jun</option><option label="Jul" value="number:7">Jul</option><option label="Aug" value="number:8">Aug</option><option label="Sep" value="number:9">Sep</option><option label="Oct" value="number:10">Oct</option><option label="Nov" value="number:11">Nov</option><option label="Dec" value="number:12">Dec</option></select>
+                        </div>
+                    </div>
+
+                    <p class="text-center">
+                        <br>
+                        <button type="submit" ng-hide="vm.ajaxRequest" ng-disabled="!forgottenForm.$valid" class="vaRoundButton vaRoundButton-Red ng-binding" disabled="disabled">จดจำฉันตลอดเวลา</button>
+                        <ajax-loader ng-show="vm.ajaxRequest" class="ng-isolate-scope ng-hide"><div class="ajaxLoader"><img src="/Images/Styling/rolling.gif" width="28" height="28"></div></ajax-loader>
+                    </p>
+
+                    <p class="text-center">
+                        <a href="" ng-click="vm.mode = 0" class="ng-binding">ย้อนกลับ</a>
+                    </p>
+                </form>
+                <!-- End Forgotten Password Form -->                
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-sm-offset-1 mobile-center">
+            <h2 class="welcome ng-binding" ng-bind-html="appCtrl.dic.Login.Welcome.Title">ขอต้อนรับสู่<span>มายล็อคเกอร์</span></h2>
+            <p ng-bind-html="appCtrl.dic.Login.Welcome.Intro" class="ng-binding">ต้องการจองคลาสที่คุณชื่นชอบ? สบายมาก - เราจัดการให้คุณได้ มายล็อคเกอร์ถูกออกแบบมาเพื่อช่วยคุณในทุกขั้นตอนไปสู่การมีสุขภาพที่ดีดังใจคุณ</p>
+            <br>
+            <h3 ng-bind-html="appCtrl.dic.Login.Welcome.NotAMember" class="ng-binding">ยังไม่ได้เป็นสมาชิก</h3>
+            <p ng-bind-html="appCtrl.dic.Login.Welcome.NotAMemberIntro" class="ng-binding">เรามีความยินดีที่จะพาคุณชมคลับของเรา - เรามีมากกว่า 200 คลาสต่อสัปดาห์รอคุณอยู่ แวะเข้ามาชมคลับเราวันนี้ คุณอาจพบว่านีี่่เป็นการตัดสินใจที่ดีที่สุดในชีวิตคุณ</p>
+            <a href="http://www.virginactive.co.th/home/talk_to_us.aspx" class="vaRoundButton vaRoundButton-Grey vaRoundButton-Small ng-binding">เข้าชมคลับ</a>
+        </div>
+    </div>
+</div></div>
+    <!-- End Template Container -->
+
+    <!-- Global Footer -->
+<footer>
+    <div class="vaSlantLeft"></div>
+    <div class="vaSlantRight"></div>
+    <div class="vaFooterContainer">
+        <h3 ng-bind-html="appCtrl.dic.Footer.SocialHeadline" class="ng-binding">กดถูกใจ กดติดตาม และแชร์</h3>
+
+ <a href="https://www.facebook.com/VirginActiveThailand" target="_blank" class="vaSocial facebook"></a>          <a href="http://instagram.com/virginactivethailand" target="_blank" class="vaSocial instagram"></a>                                <hr>
+        <div class="container footerLinks">
+            <div class="row">
+                <div class="col-sm-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <ul>
+                                <li><a href="http://www.virginactive.co.th/home/our_classes.aspx" class="ng-binding">คลาสของเรา</a></li>
+                                <li><a href="http://www.virginactive.co.th/home/our_clubs.aspx" class="ng-binding">คลับของเรา</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4">
+                            <ul>
+                                <li><a href="http://www.virginactive.co.th/home/events.aspx" class="ng-binding">กิจกรรม</a></li>
+                                <li><a href="http://www.virginactive.co.th/home/talk_to_us.aspx" class="ng-binding">พูดคุยกับเรา</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4">
+                            <ul>
+                                <li><a href="http://www.virginactive.co.th/home/careers.aspx" class="ng-binding">ร่วมงานกับเรา</a></li>
+                                <li><a href="http://www.virginactive.co.th/home/footer/legal_stuff.aspx" class="ng-binding">กฎระเบียบข้อบังคับต่าง ๆ</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <span class="vaCopyright">©Copyright 2016 Virgin Active.</span>
+    </div>
+</footer>
+<!-- End Global Footer -->
+
+    <!-- CDN Hosted Scripts -->
+    <script async="" src="//www.google-analytics.com/analytics.js"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A==" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-sanitize.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+
+    <script>        
+        var baseAPIURL = "https://hal.virginactive.co.th";
+        var analyticsKey = "";
+        var countryISOSeed = "TH";
+        var languageOptionsSeed = {
+            iso: "th-TH",
+            secondLanguageEnabled: true
+            };        
+    </script>
+
+    <!-- Scripts -->
+    <script src="/bundles/mylockerjs?v=cFb7zMpGLkrNY5R5e-AeebayBXO6VkrSuNs2eSQ7izA1"></script>
+
+
+</body></html>

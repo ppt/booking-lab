@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "compile:coffee": "coffee --watch --compile *.coffee",
-    "run:casperjs": "onchange test.js -- casperjs test.js",
+    "run:casperjs": "onchange booking2.js -- casperjs booking2.js --user=20009324 --password=0625 --class-time=\"10:00am\" --class-name=\"Body Pump\" --scantime=\"21:59:00\" --maxloop=1200 --delaytime=1000 --test-flag",
     "start": "npm run compile:coffee & npm run run:casperjs"
   },
   "keywords": [],
