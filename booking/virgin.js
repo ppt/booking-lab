@@ -1,23 +1,19 @@
 /* TODO
-- select date : check header active before check detail
-- booking : diff before click with date before
-- log moment
-- using repeat to loop, each loop 0.5 sec
-- calculate start time, parameter starttime
-- calculate repeat count
-- test-flag to use 8 instead of 9
+*/
 
-- check function
+/*
+casperjs virgin.js --user=20040756 --password=2466 --class-name="body combat" --class-time="7:30am" --start-time='8:37:00' --test-flag
+  - test-flag use 8th day not 9th day and if not specified start-time start imediatly
+  - start-time use set start-time
 */
 
 // var development = true;
-var development = true;
-function dumpFile(filename,value) {
-    if (development) {
-        var fs = require('fs');
-        fs.write(filename, value, 'w');
-    }
-}
+// function dumpFile(filename,value) {
+//     if (development) {
+//         var fs = require('fs');
+//         fs.write(filename, value, 'w');
+//     }
+// }
 
 var casper = require("casper").create({
     verbose: true,
