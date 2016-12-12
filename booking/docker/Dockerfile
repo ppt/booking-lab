@@ -48,7 +48,7 @@ RUN apt-get install npm -y
 # RUN npm install -g coffee-script
 RUN npm install moment
 run rm /home/phantomjs-*.bz2
-# COPY booking.js booking2.js booking-seq.js /home/
+COPY virgin.js /home/
 
 # Default command
 CMD ["/usr/bin/casperjs"]
