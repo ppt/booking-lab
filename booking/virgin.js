@@ -2,16 +2,16 @@
 - select date : check header active before check detail
 - booking : diff before click with date before
 - log moment
-- check function
 - using repeat to loop, each loop 0.5 sec
 - calculate start time, parameter starttime
-
 - calculate repeat count
 - test-flag to use 8 instead of 9
+
+- check function
 */
 
 // var development = true;
-var development = false;
+var development = true;
 function dumpFile(filename,value) {
     if (development) {
         var fs = require('fs');
@@ -25,7 +25,7 @@ var casper = require("casper").create({
     logLevel: 'error',
     waitTimeout: 120000,
     pageSettings: {
-        loadImages:  false,        // To enable screen capture
+        // loadImages:  false,        // To enable screen capture
         userAgent: 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
     }
 });
@@ -39,13 +39,22 @@ function logMsg(msg) {
 
 var user = casper.cli.raw.get("user");
 var password = casper.cli.raw.get('password');
-var class_name = casper.cli.raw.get('classname');
-var class_time = casper.cli.raw.get('classtime');
-var testdate = 8;
+var class_name = casper.cli.raw.get('class-name');
+var class_time = casper.cli.raw.get('class-time');
 var row_select = -1;
 var loop_check_time = 30000;
-
-
+var pollloop = 2100; // repeat poll for 17 minutes, each poll takes 0.5 sec
+var testdate = 9;
+var start_time = casper.cli.raw.get('start-time');
+if (start_time == undefined) {
+    start_time = '21:59:00';
+}
+var test_flag = casper.cli.raw.get('test-flag');
+if (test_flag == undefined) {
+    test_flag = false;
+} else {
+    testdate = 8;
+}
 
 function selectDate() {
     casper.then(function(){
@@ -94,7 +103,6 @@ function booking() {
 
     casper.then(function(){
         logMsg('find class');
-    // dumpFile('findClass.html',this.getHTML());
         row_select = findClass(getClass(this.getHTML('table')),class_name, class_time);
         if(row_select == -1) {
             dumpFile('findClass.html',this.getHTML());
@@ -106,10 +114,8 @@ function booking() {
 
     casper.then(function() {
         logMsg('select class');
-    // dumpFile('clickSelect.html',this.getHTML());
         this.click('table tr.classDetailRow.active a.memberBooking');
         this.waitForSelector('#modalBooking.modal.fade.ng-scope.in .modal-footer button[ng-click="vm.makeBooking()"]:not(.ng-hide)');
-    // this.waitForSelector('#modalBooking button.vaRoundButton-Red[ng-click="vm.makeBooking()"]');
     });
 
     casper.then(function() {
@@ -125,9 +131,18 @@ function booking() {
     });
 }
 
-logMsg('Start');
 
-casper.start('https://mylocker.virginactive.co.th/#/login', function(){
+casper.start('https://mylocker.virginactive.co.th/', function(){
+    logMsg('Start');
+    var now = moment();
+    var end_time_str = now.format('YYYY-MM-DD')+' '+ start_time;
+    var end_time = moment(end_time_str,'YYYY-MM-DD HH:mm:ss');
+    var sleep_time = parseInt(end_time.diff(now,'milliseconds'));
+    if (!test_flag || (test_flag && casper.cli.has('start-time')))
+        casper.wait(sleep_time);
+});
+
+casper.thenOpen('https://mylocker.virginactive.co.th/#/login', function(){
     var s = this.getHTML('.welcome');
     if (s.indexOf('ขอต้อนรับสู่') == 0) {
         this.clickLabel('Switch Language');
@@ -167,12 +182,15 @@ casper.then(function(){
         casper.exit();
     }
     function checkFunc() {
-        if (i == 9) {
+        var s = casper.getHTML();
+        logMsg('check '+i);
+        if (s.match(/classDetailRow/i)) {
             openFlag = true;
+            logMsg('Open');
         }
         return true;
     }
-    casper.repeat(10, function() {
+    casper.repeat(pollloop, function() {
         i++;
         this.waitFor(checkFunc, thenFunc, timeoutFunc, loop_check_time, null);
         if (openFlag) {
