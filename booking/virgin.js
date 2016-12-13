@@ -19,7 +19,7 @@ var casper = require("casper").create({
     verbose: true,
     // logLevel: 'debug',
     logLevel: 'error',
-    waitTimeout: 120000,
+    waitTimeout: 360000,
     pageSettings: {
         // loadImages:  false,        // To enable screen capture
         userAgent: 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
@@ -126,13 +126,16 @@ function booking() {
 
 
 casper.start('https://mylocker.virginactive.co.th/', function(){
+    casper.echo(user+' '+class_time+' '+class_name);
     logMsg('Start');
     var now = moment();
     var end_time_str = now.format('YYYY-MM-DD')+' '+ start_time;
     var end_time = moment(end_time_str,'YYYY-MM-DD HH:mm:ss');
     var sleep_time = parseInt(end_time.diff(now,'milliseconds'));
-    if (!test_flag || (test_flag && casper.cli.has('start-time')))
-        casper.wait(sleep_time);
+    if (!test_flag || (test_flag && casper.cli.has('start-time'))) {
+        if (sleep_time > 0)
+            casper.wait(sleep_time);
+    }
 });
 
 casper.thenOpen('https://mylocker.virginactive.co.th/#/login', function(){
@@ -171,6 +174,7 @@ casper.then(function(){
     function thenFunc() {
     }
     function timeoutFunc() {
+        logMsg('Check Timeout');
         casper.exit();
     }
     function checkFunc() {
