@@ -171,6 +171,7 @@ casper.then(function() {
 // wait for opening
 casper.then(function(){
     var openFlag = false;
+    var i = 1;
     function thenFunc() {
     }
     function timeoutFunc() {
@@ -179,10 +180,10 @@ casper.then(function(){
     }
     function checkFunc() {
         var s = casper.getHTML();
-        logMsg('check');
+        logMsg('check '+i++);
         if (s.match(/classDetailRow/i)) {
             openFlag = true;
-            logMsg('Open');
+            logMsg('Open '+i);
         }
         return true;
     }
