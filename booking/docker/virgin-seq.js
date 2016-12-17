@@ -36,7 +36,7 @@ function logMsg(msg) {
 var user = casper.cli.raw.get("user");
 var password = casper.cli.raw.get('password');
 var class_name = casper.cli.raw.get('class-name');
-var class_time = casper.cli.raw.get('class-time');
+var class_seq = casper.cli.get("seq");
 var row_select = -1;
 var loop_check_time = 30000;
 var pollloop = 2100; // repeat poll for 17 minutes, each poll takes 0.5 sec
@@ -88,18 +88,22 @@ function booking() {
         return result;
     }
 
-    function findClass(classes,class_name,class_time) {
+    function findClass(classes,class_name,seq) {
         for(var i=0; i<classes.length; i++) {
-            if (classes[i].time === class_time.toLowerCase() && classes[i].name.indexOf(class_name.toLowerCase()) >= 0) {
-                return i;
+            if (classes[i].name.indexOf(class_name.toLowerCase()) >= 0) {
+                if (seq == 1) {
+                    return i;
+                }
+                seq = seq - 1;
             }
         }
         return -1;
+
     }
 
     casper.then(function(){
         logMsg('find class');
-        row_select = findClass(getClass(this.getHTML('table')),class_name, class_time);
+        row_select = findClass(getClass(this.getHTML('table')),class_name, class_seq);
         logMsg('row selected : '+row_select);
         this.click('table.table tbody tr:nth-of-type(' + (2 + row_select*2) + ')');
         this.waitForSelector('table.table tbody tr:nth-of-type(' + (2 + row_select*2) + ').active');
@@ -126,7 +130,7 @@ function booking() {
 
 
 casper.start('https://mylocker.virginactive.co.th/', function(){
-    casper.echo(user+' '+class_time+' '+class_name);
+    casper.echo(user+' '+class_seq+' '+class_name);
     logMsg('Start');
     var now = moment();
     var end_time_str = now.format('YYYY-MM-DD')+' '+ start_time;
