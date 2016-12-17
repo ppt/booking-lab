@@ -88,13 +88,13 @@ function booking() {
         return result;
     }
 
-    function findClass(classes,class_name,class_seq) {
+    function findClass(classes,class_name,seq) {
         for(var i=0; i<classes.length; i++) {
             if (classes[i].name.indexOf(class_name.toLowerCase()) >= 0) {
-                if (class_seq == 1) {
+                if (seq == 1) {
                     return i;
-                } else
-              class_seq = class_seq - 1;
+                }
+                seq = seq - 1;
             }
         }
         return -1;
