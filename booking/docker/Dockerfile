@@ -49,6 +49,7 @@ RUN apt-get install npm -y
 RUN npm install moment
 run rm /home/phantomjs-*.bz2
 COPY virgin.js /home/
+COPY virgin-seq.js /home/
 
 # Default command
 CMD ["/usr/bin/casperjs"]

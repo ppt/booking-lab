@@ -5,6 +5,9 @@ cp azure.sh ~/Dropbox/booking
 cp stopjobs.rb ~/Dropbox/booking
 cp startjobs.rb ~/Dropbox/booking
 cp startjobs2.rb ~/Dropbox/booking
+cp startjobs2-seq.rb ~/Dropbox/booking
+cp startjobs3.rb ~/Dropbox/booking
+cp startjobs3-seq.rb ~/Dropbox/booking
 cp testjobs.rb ~/Dropbox/booking
 cp statusjobs.rb ~/Dropbox/booking
 cp booking/virgin.js ~/Dropbox/booking
