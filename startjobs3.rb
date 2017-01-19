@@ -24,7 +24,7 @@ def d_stop(host)
   end
 end
 
-def booking(host, user, passwd, course, time, session)
+def booking(host, user, passwd, course, time, session, starttime)
   if host.downcase.include? 'azure'
     `ssh -q  -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no praphan@ppt-#{host}.ddns.net tmux new-session -d -s t#{session}`
     s = "ssh -q  -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no praphan@ppt-#{host}.ddns.net tmux send-keys -t t#{session} \"'docker run -it phan/virgin casperjs --user=#{user} --password=#{passwd} --class-time='#{time}' --class-name='#{course}' --start-time='#{starttime}' virgin.js' Enter\""
@@ -45,7 +45,7 @@ courses.each_with_index do |(key, value), index|
   session = 1
   value.each { |user, course, time|
     puts "#{user} #{time} #{course}"
-    booking key, user, passwd[user.to_s], course, time, session
+    booking key, user, passwd[user.to_s], course, time, session, starttime
     session = session + 1
   }
 end
