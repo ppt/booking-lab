@@ -20,7 +20,7 @@ def d_stop(host)
   if host.downcase.include? 'azure'
     `ssh -q  -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no praphan@ppt-#{host}.ddns.net 'docker stop $(docker ps -qa) ; docker rm $(docker ps -qa)'`
   else
-    `ssh -q  -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no -i ~/Dropbox/booking/Docker/ntp.pem ec2-user@ppt#{host.downcase.gsub('aws','')}.ddns.net 'docker stop $(docker ps -qa) ; docker rm $(docker ps -qa)'`
+    `ssh -q  -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no -i ~/Dropbox/booking/Docker/ntp.pem ubuntu@ppt#{host.downcase.gsub('aws','')}.ddns.net 'docker stop $(docker ps -qa) ; docker rm $(docker ps -qa)'`
   end
 end
 
@@ -32,8 +32,8 @@ def booking(host, user, passwd, course, time, session, starttime)
     `#{s}`
 
   else
-    `ssh -q  -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no -i ~/Dropbox/booking/Docker/ntp.pem ec2-user@ppt#{host.downcase.gsub('aws','')}.ddns.net tmux new-session -d -s t#{session}`
-    s = "ssh -q  -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no -i ~/Dropbox/booking/Docker/ntp.pem ec2-user@ppt#{host.downcase.gsub('aws','')}.ddns.net tmux send-keys -t t#{session} \"'docker run -it phan/virgin casperjs --user=#{user} --password=#{passwd} --class-time='#{time}' --class-name='#{course}' --start-time='#{starttime}' virgin.js' Enter\""
+    `ssh -q  -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no -i ~/Dropbox/booking/Docker/ntp.pem ubuntu@ppt#{host.downcase.gsub('aws','')}.ddns.net tmux new-session -d -s t#{session}`
+    s = "ssh -q  -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no -i ~/Dropbox/booking/Docker/ntp.pem ubuntu@ppt#{host.downcase.gsub('aws','')}.ddns.net tmux send-keys -t t#{session} \"'docker run -it phan/virgin casperjs --user=#{user} --password=#{passwd} --class-time='#{time}' --class-name='#{course}' --start-time='#{starttime}' virgin.js' Enter\""
     p s
     `#{s}`
   end
