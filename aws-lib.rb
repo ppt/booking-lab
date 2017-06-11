@@ -1,5 +1,5 @@
 def awsStatus(id)
-  `bash -c 'source aws.sh; aws-status #{id}'`[0..-2]
+  `bash -c 'source ~/dotFiles/aws.sh; aws-status #{id}'`[0..-2]
 end
 
 
