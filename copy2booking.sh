@@ -1,12 +1,17 @@
 cp aws-lib.rb ~/Dropbox/booking
 cp azure-lib.rb ~/Dropbox/booking
+cp ssh-lib.rb ~/Dropbox/booking
+cp pc-lib.rb ~/Dropbox/booking
 cp azure.sh ~/Dropbox/booking
 cp stopjobs.rb ~/Dropbox/booking
+cp stopjobs2.rb ~/Dropbox/booking
 cp startjobs.rb ~/Dropbox/booking
 cp startjobs2.rb ~/Dropbox/booking
 cp startjobs2-seq.rb ~/Dropbox/booking
 cp startjobs3.rb ~/Dropbox/booking
 cp startjobs3-seq.rb ~/Dropbox/booking
+cp startjobs4.rb ~/Dropbox/booking
+cp startjobs4-seq.rb ~/Dropbox/booking
 cp testjobs.rb ~/Dropbox/booking
 cp statusjobs.rb ~/Dropbox/booking
 cp booking/virgin.js ~/Dropbox/booking
