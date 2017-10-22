@@ -12,7 +12,7 @@ else
   jobs = ARGV[0]
   passwd = ARGV[1]
 end
-starttime = '22:09:30'
+starttime = '22:13:30'
 
 courses = YAML.load_file jobs
 passwd = YAML.load_file passwd
