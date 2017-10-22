@@ -21,3 +21,7 @@ end
 def tmuxNewSession(session)
   "tmux new-session -d -s t#{session}"
 end
+
+def tmuxSession(session)
+  "tmux send-keys -t t#{session}"
+end

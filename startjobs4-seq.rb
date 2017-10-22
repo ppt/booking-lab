@@ -17,9 +17,18 @@ starttime = '22:09:30'
 courses = YAML.load_file jobs
 passwd = YAML.load_file passwd
 
-def booking(host, user, passwd, course, seq, session, starttime)
-  dockerRunCmd = "tmux send-keys -t t#{session} \"'docker run -it phan/virgin casperjs --user=#{user} --password=#{passwd} --seq='#{seq}' --class-name='#{course}' --start-time='#{starttime}' virgin-seq.js' Enter\""
-  s = "#{$sshCmd} #{hostCmd(host)} #{dockerRunCmd}"
+def dockerRunCmd(user, passwd, course, seq, starttime)
+  "docker run -it phan/virgin casperjs --user=#{user} --password=#{passwd} --seq='#{seq}' --class-name='#{course}' --start-time='#{starttime}' virgin-seq.js"
+end
+
+# def booking(host, user, passwd, course, seq, session, starttime)
+def booking(host, session, courses)
+  seqCmd = courses.map{|x|
+    user, passwd, course, seq, starttime = x
+    dockerRunCmd(user, passwd, course, seq, starttime)
+  }.join(' ; ')
+  # user, passwd, course, seq, starttime = courses
+  s = "#{$sshCmd} #{hostCmd(host)} #{tmuxSession(session)} \"'#{seqCmd}' Enter\""
   p s
   `#{s}`
 end
@@ -29,20 +38,20 @@ courses.each_with_index do |(key, value), index|
   puts "#{key}"
   session = 1
   for el in value do
-    tmux_newSession = "tmux new-session -d -s t#{session}"
-    p "#{$sshCmd} #{hostCmd(key)} #{tmux_newSession}"
-    `#{$sshCmd} #{hostCmd(key)} #{tmux_newSession}`
-    # check if multiple entry
-    
+    p "#{$sshCmd} #{hostCmd(key)} #{tmuxNewSession(session)}"
+    `#{$sshCmd} #{hostCmd(key)} #{tmuxNewSession(session)}`
+    # check if multiple entry    
     if el[0].kind_of?(Array) then
+      courses = []
       el.each { |user, course, seq|
         puts "#{user} #{seq} #{course}"
-        booking key, user, passwd[user.to_s], course, seq, session, starttime
+        courses.push([user, passwd[user.to_s], course, seq, starttime])
       }
+      booking key, session, courses
     else
       user, course, seq = el
       puts "#{user} #{seq} #{course}"
-      booking key, user, passwd[user.to_s], course, seq, session, starttime
+      booking key, session, [[user, passwd[user.to_s], course, seq, starttime]]
     end
 
     session = session + 1
