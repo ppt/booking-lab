@@ -5,6 +5,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "report",
+      "type": "Ruby",
+      "request": "launch",
+      "cwd": "${workspaceRoot}",
+      "program": "${workspaceRoot}/report.rb"
+    },
+    {
       "name": "stopjobs2",
       "type": "Ruby",
       "request": "launch",

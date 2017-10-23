@@ -10,9 +10,9 @@ cp startjobs2.rb ~/Dropbox/booking
 cp startjobs2-seq.rb ~/Dropbox/booking
 cp startjobs3.rb ~/Dropbox/booking
 cp startjobs3-seq.rb ~/Dropbox/booking
-cp startjobs4.rb ~/Dropbox/booking
 cp startjobs4-seq.rb ~/Dropbox/booking
 cp testjobs.rb ~/Dropbox/booking
 cp statusjobs.rb ~/Dropbox/booking
+cp report.rb ~/Dropbox/booking
 cp booking/virgin.js ~/Dropbox/booking
 cp booking/virgin-seq.js ~/Dropbox/booking
