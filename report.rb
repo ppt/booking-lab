@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 def printLogs(data)
   data.each { |x| 
     fname,id,seq,course = x
@@ -8,7 +9,7 @@ def printLogs(data)
   puts
 end
 
-logsDir = '/Users/praphan/Dropbox/booking/logs/'
+logsDir = './logs/'
 latestDir = Dir.glob(logsDir+'*/').max_by {|f| File.mtime(f)}
 ok = []
 notok = []
