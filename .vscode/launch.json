@@ -20,6 +20,13 @@
       "args": ["jobs.yml"]
     },
     {
+      "name": "startjobs-mac",
+      "type": "Ruby",
+      "request": "launch",
+      "cwd": "${workspaceRoot}",
+      "program": "${workspaceRoot}/startjobs5-seq.rb",
+      "args": ["jobs-seq-mac.yml"]
+    },
       "name": "startjobs4",
       "type": "Ruby",
       "request": "launch",
