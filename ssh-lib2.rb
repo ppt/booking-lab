@@ -3,6 +3,8 @@ $sshCmd = 'ssh -q  -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no'
 def hostCmd(host)
   if host.downcase.include? 'azure'
     "praphan@ppt-#{host}.ddns.net"
+  elsif host.downcase == 'localhost'
+    "localhost -p 2625"
   elsif host.downcase == 'pc'
     "praphan@ppt-pc.ddns.net -p 2625"
   elsif host.downcase == 'mac'

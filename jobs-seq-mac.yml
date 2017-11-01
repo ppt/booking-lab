@@ -1,8 +1,8 @@
-mac:
+localhost:
   - [ 20001104, V-Sculpt,   1 ]
   - [ 20004174, Gravity,    1 ]
   -
-    - [ 20001104, V-Sculpt2,   1 ]
+    - [ 20001104, "V-Sculpt2 hello",   1 ]
     - [ 20004174, Gravity2,    1 ]
 # azure1:
 #   - [ 20001104, V-Sculpt,   1 ]

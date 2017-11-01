@@ -5,6 +5,16 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "cechk",
+      "type": "Ruby",
+      "request": "launch",
+      "cwd": "${workspaceRoot}",
+      "program": "${workspaceRoot}/check.rb",
+      "args": [
+        "jobs-seq-mac.yml"
+      ]
+    },
+    {
       "name": "report",
       "type": "Ruby",
       "request": "launch",
