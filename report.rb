@@ -18,7 +18,11 @@ Dir.glob(latestDir+'*') { |fname|
   lines = File.readlines(fname)
   id,seq,course = lines[0].split(' ')
   if lines[-1].downcase().include?('click ok') then
-    ok.push([fname,id,seq,course])
+    if lines[-2].downcase().include?('timeout') then
+      notok.push([fname,id,seq,course])
+    else
+      ok.push([fname,id,seq,course])
+    end
   else
     notok.push([fname,id,seq,course])
   end
