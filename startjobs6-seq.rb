@@ -18,7 +18,7 @@ courses = YAML.load_file jobs
 passwd = YAML.load_file passwd
 
 def dockerRunCmd(user, passwd, course, seq, starttime)
-  "docker run -it phan/virgin casperjs --user=#{user} --password=#{passwd} --seq='#{seq}' --class-name='#{course}' --start-time='#{starttime}' virgin-seq.js"
+  "docker run -it phan/virgin casperjs --user=#{user} --password=#{passwd} --seq='#{seq}' --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' virgin-seq.js"
 end
 
 # def booking(host, user, passwd, course, seq, session, starttime)
@@ -28,7 +28,7 @@ def booking(host, session, courses)
     dockerRunCmd(user, passwd, course, seq, starttime)
   }.join(' ; ')
   # user, passwd, course, seq, starttime = courses
-  s = "#{$sshCmd} #{hostCmd(host)} #{tmuxSession(session)} \"'#{seqCmd.sub(' ','Space')}' Enter\""
+  s = "#{$sshCmd} #{hostCmd(host)} #{tmuxSession(session)} \"'#{seqCmd}' Enter\""
   p s
   `#{s}`
 end
