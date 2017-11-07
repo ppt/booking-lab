@@ -29,7 +29,7 @@ Dir.glob(latestDir+'*') { |fname|
 }
 puts 'NOT OK'
 puts '='*6
-printLogs (notok).sort_by { |x| [x[3],x[2],x[1]]}
+printLogs (notok.map { |x| x.map { |y| (if y == nil then '' else y end) } }).sort_by { |x| [x[3],x[2],x[1]]}
 puts 'OK'
 puts '='*2
-printLogs (ok).sort_by { |x| [x[3],x[2],x[1]]}
+printLogs (ok.map { |x| x.map { |y| (if y == nil then '' else y end) } }).sort_by { |x| [x[3],x[2],x[1]]}
