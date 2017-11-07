@@ -25,7 +25,7 @@ end
 
 for host in courses.keys do
   host = host.downcase
-  if ['pc','mac','localhost'].include? host 
+  if ['pc','mac','localhost','macppt','macntp'].include? host 
     logsPCMac(host)
   elsif host.include? 'aws'
     i = host.scan(/\d+/)[0]
@@ -65,7 +65,9 @@ def logsPCMac(host)
     end
   end
 end
-logsPCMac('localhost')
+# logsPCMac('localhost')
 logsPCMac('pc')
 logsPCMac('mac')
+logsPCMac('macppt')
+logsPCMac('macntp')
 

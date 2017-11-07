@@ -50,3 +50,5 @@ def stopPCMac(host)
 end
 stopPCMac('pc')
 stopPCMac('mac')
+stopPCMac('macppt')
+stopPCMac('macntp')
