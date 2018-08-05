@@ -83,7 +83,7 @@ function aws-launch {
 
 function aws-ssh {
   # ssh-aws 3
-  sed "/^ppt$1.ddns.net/d" ~/.ssh/known_hosts
+  sed "/^ppt$1.ddns.net/d" ~/.ssh/known_hosts > ~/.ssh/known_hosts
   if [ $# -eq 1 ]
   then
     ssh -i ~/Dropbox/booking/Docker/ntp.pem -o StrictHostKeyChecking=no ubuntu@ppt$1.ddns.net
