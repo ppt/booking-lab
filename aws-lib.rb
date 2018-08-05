@@ -15,6 +15,9 @@ def awsStop(id)
   `bash -c 'source ~/dotFiles/aws.sh; aws-stop #{id}'`
 end
 
+def awsTerminate(id)
+  `bash -c 'source ~/dotFiles/aws.sh; aws-terminate #{id}'`
+end
 
 def awsGetRunning()
   result = []

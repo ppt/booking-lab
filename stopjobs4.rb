@@ -24,7 +24,7 @@ for i in awsGetRunning() do
     File.open("#{$dir_name}/aws#{i}-#{containerID(s)}", 'w') { |file| file.write(awsGetLogs(i,containerID(s))) }
   end
   d_stop "aws#{i}"
-  awsTerminate
+  awsTerminate i
 end
 
 # azure
