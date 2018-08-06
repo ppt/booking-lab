@@ -10,7 +10,7 @@ def containerID(s)
 end
 
 if ARGV.empty?
-  sleep(Time.parse("22:30") - Time.now)
+  sleep(Time.parse("22:09") - Time.now)
 end
 
 $dir_name = "logs/#{Time.now.strftime("%d-%m-%Y")}"
