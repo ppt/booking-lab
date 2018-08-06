@@ -2,9 +2,6 @@
 # setup
 #   brew install aws
 #   aws configure
-# export AWS_ACCESS_KEY_ID=AKIAIKYRPKELJ7JAAKUA
-# export AWS_SECRET_ACCESS_KEY=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
-export AWS_REGION=ap-southeast-1
 
 function aws-getField {
   aws ec2 describe-instances --filters "Name=tag:Name,Values=ppt$1" --query "Reservations[*].Instances[*].$2"  --output=text
@@ -74,10 +71,18 @@ function aws-terminate {
 }
 
 function aws-launch {
-    for i in {1..$1..1}
-    do
-      aws ec2 run-instances --image-id="ami-f164291b" --key-name="ntp"  --instance-type="t2.small" --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=ppt$i}]" --security-group-ids sg-c9ff42b1
-    done
+    if [ $# -eq 0 ]
+    then
+      for ((i = 1; i <= 12; i++ ));
+      do
+        aws ec2 run-instances --image-id "ami-f164291b" --key-name "ntp"  --instance-type "t2.small" --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=ppt$i}]" --security-group-ids "sg-c9ff42b1"
+      done
+    else
+      for ((i = 1; i <= $1; i++ ));
+      do
+        aws ec2 run-instances --image-id "ami-f164291b" --key-name "ntp"  --instance-type "t2.small" --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=ppt$i}]" --security-group-ids "sg-c9ff42b1"
+      done
+    fi
     aws-noip
 }
 
@@ -156,4 +161,4 @@ function aws-deleteSnapshot {
 # aws ec2 authorize-security-group-ingress --group-id sg-c9ff42b1 --protocol tcp --port 22 --cidr 0.0.0.0/0 --region ap-southeast-1
 
 # lauanch instance
-# aws ec2 run-instances --image-id="ami-93286579" --key-name="ntp"  --instance-type="t2.small" --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=ppt21}]' --security-group-ids sg-c9ff42b1
+# aws ec2 run-instances --image-id "ami-93286579" --key-name "ntp"  --instance-type "t2.small" --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=ppt21}]' --security-group-ids sg-c9ff42b1

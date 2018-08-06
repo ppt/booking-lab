@@ -21,7 +21,7 @@ end
 
 def awsGetRunning()
   result = []
-  for i in 1..8 do
+  for i in 1..12 do
     if awsIsRunning(i)
       result.push i
     end
