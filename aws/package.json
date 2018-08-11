@@ -1,0 +1,19 @@
+{
+  "name": "aws",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lambda.js",
+  "scripts": {
+    "ami": "nodemon removeAMI.js",
+    "ec2": "nodemon launchEC2.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.290.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  }
+}
