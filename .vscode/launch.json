@@ -11,20 +11,21 @@
       "program": "${workspaceFolder}/aws/lambda.js"
     },
     {
-      "type": "node",
+      "name": "ruby launch.rb",
+      "type": "Ruby",
       "request": "launch",
-      "name": "node aws/local/test.js",
-      "program": "${workspaceFolder}/aws/local/test.js"
+      "cwd": "${workspaceRoot}",
+      "program": "${workspaceRoot}/launch.rb"
     },
     {
-      "name": "calendar",
+      "name": "ruby calendar.rb",
       "type": "Ruby",
       "request": "launch",
       "cwd": "${workspaceRoot}",
       "program": "${workspaceRoot}/chk-calendar.rb"
     },
     {
-      "name": "cechk",
+      "name": "check",
       "type": "Ruby",
       "request": "launch",
       "cwd": "${workspaceRoot}",
