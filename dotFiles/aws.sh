@@ -3,6 +3,10 @@
 #   brew install aws
 #   aws configure
 
+# using by s3-editor
+export AWS_REGION=ap-southeast-1
+export EDITOR=/usr/bin/nano
+
 function aws-getField {
   aws ec2 describe-instances --filters "Name=tag:Name,Values=ppt$1" --query "Reservations[*].Instances[*].$2"  --output=text
 
@@ -75,12 +79,12 @@ function aws-launch {
     then
       for ((i = 1; i <= 12; i++ ));
       do
-        aws ec2 run-instances --image-id "ami-f164291b" --key-name "ntp"  --instance-type "t2.small" --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=ppt$i}]" --security-group-ids "sg-c9ff42b1"
+        aws ec2 run-instances --image-id "ami-f164291b" --key-name "ntp"  --instance-type "t2.micro" --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=ppt$i}]" --security-group-ids "sg-c9ff42b1"
       done
     else
       for ((i = 1; i <= $1; i++ ));
       do
-        aws ec2 run-instances --image-id "ami-f164291b" --key-name "ntp"  --instance-type "t2.small" --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=ppt$i}]" --security-group-ids "sg-c9ff42b1"
+        aws ec2 run-instances --image-id "ami-f164291b" --key-name "ntp"  --instance-type "t2.micro" --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=ppt$i}]" --security-group-ids "sg-c9ff42b1"
       done
     fi
     aws-noip
@@ -153,6 +157,10 @@ function aws-snapshotID {
 # aws-deleteSnapshot 0
 function aws-deleteSnapshot {
   aws ec2 delete-snapshot --snapshot-id $(aws-snapshotID $1)
+}
+
+function aws-editCalendar {
+  s3-edit edit s3://ppt-booking/calendar.csv
 }
 
 # create security-group for ssh
