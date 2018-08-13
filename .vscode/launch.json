@@ -7,8 +7,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "node aws/lambda.js",
-      "program": "${workspaceFolder}/aws/lambda.js"
+      "name": "node aws/launchEC2.js",
+      "program": "${workspaceFolder}/aws/launchEC2.js"
     },
     {
       "name": "ruby launch.rb",

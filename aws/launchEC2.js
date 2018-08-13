@@ -9,6 +9,7 @@ const ec2 = {
   id: reservation => reservation.Instances[0].InstanceId,
   ip: reservation => reservation.Instances[0].PublicIpAddress,
   status: reservation => reservation.Instances[0].State.Name,
+  sleep: ms => new Promise(resolve => setTimeout(resolve, ms)),
   getNoDays: async () => {
     var params = {
       Bucket: "ppt-booking",
@@ -16,12 +17,24 @@ const ec2 = {
     };
     let calendar = await new AWS.S3().getObject(params).promise();
     calendar = calendar.Body.toString("utf-8");
-    console.log(`calendar: ${calendar}`);
+    console.log("calendar", calendar);
     const day = new Date().getDay();
     return calendar
       .replace(/[^0-9,]/g, "")
       .split(",")
       .map(x => parseInt(x))[day];
+  },
+  tag: async (instanceId, tag, value) => {
+    var params = {
+      Resources: [instanceId],
+      Tags: [
+        {
+          Key: tag,
+          Value: value
+        }
+      ]
+    };
+    await new AWS.EC2().createTags(params).promise();
   },
   getIdByName: async name => {
     const instance = await new AWS.EC2()
@@ -35,58 +48,57 @@ const ec2 = {
       })
       .promise();
     let id = ec2.id(instance.Reservations[0]);
-    console.log(name, id);
+    console.log("getIdByName", name, id);
     return id;
   },
-  start: async imageId => {
-    console.log("Start EC2");
-    let nodays = await ec2.getNoDays();
-    console.log(`Start ${nodays} VMs`);
+  start: async (imageId, novms) => {
+    console.log("Start EC2", novms);
     // Create EC2
-    for (let i = 1; i <= nodays; i++) {
-      const instanceParams = {
-        ImageId: imageId,
-        InstanceType: "t2.micro",
-        KeyName: "ntp",
-        SecurityGroupIds: ["sg-c9ff42b1"],
-        MinCount: 1,
-        MaxCount: 1,
-        TagSpecifications: [
-          {
-            ResourceType: "instance",
-            Tags: [
-              {
-                Key: "Name",
-                Value: `ppt${i}`
-              }
-            ]
-          }
-        ]
-      };
-      let data = await new AWS.EC2()
-        .runInstances(instanceParams)
-        .promise();
-      console.log(data);
-    }
+    const instanceParams = {
+      ImageId: imageId,
+      InstanceType: "t2.micro",
+      KeyName: "ntp",
+      SecurityGroupIds: ["sg-c9ff42b1"],
+      MinCount: novms,
+      MaxCount: novms,
+      TagSpecifications: [
+        {
+          ResourceType: "instance",
+          Tags: [
+            {
+              Key: "Group",
+              Value: "booking"
+            }
+          ]
+        }
+      ]
+    };
+    let data = await new AWS.EC2().runInstances(instanceParams).promise();
+    console.log(data);
   },
   getRunning: async () => {
-    const data = await new AWS.EC2().describeInstances({}).promise();
+    const params = {
+      Filters: [
+        {
+          Name: "tag:Group",
+          Values: ["booking"]
+        }
+      ]
+    };
+    const data = await new AWS.EC2().describeInstances(params).promise();
     let running = [];
-    data.Reservations.forEach(element => {
-      if (ec2.status(element) == "running") {
-        running.push([ec2.name(element), ec2.ip(element)]);
-      }
+    data.Reservations.forEach(r => {
+      r.Instances.forEach(e => {
+        if (e.State.Name == "running") {
+          running.push({
+            id: e.InstanceId,
+            ip: e.PublicIpAddress,
+            state: e.State.Name
+          });
+        }
+      });
     });
     return running;
-  },
-  assignNOIP: async () => {
-    console.log("Assign NOIP");
-    const running = await ec2.getRunning();
-    running.forEach(([name, ip]) => {
-      const url = `http://praphan:password@dynupdate.no-ip.com/nic/update?hostname=${name}.ddns.net&myip=${ip}`;
-      http.get(url);
-      console.log(`${name}, ${ip}, ${url}`);
-    });
   },
   describeImages: async name => {
     const images = await new AWS.EC2()
@@ -105,65 +117,118 @@ const ec2 = {
     const instance = await ec2.describeImages(name);
     if (instance.Images.length == 0) return "no image";
     const state = instance.Images[0].State;
-    console.log(`getImageState ${name}: ${state}`);
+    console.log("getImageState", name, state);
     return state;
   },
   getImageId: async name => {
     const instance = await ec2.describeImages(name);
-    console.dir(instance);
     const id = instance.Images[0].ImageId;
-    console.log(`getImageId ${name}: ${id}`);
+    console.log("getImageId", name, id);
     return id;
   },
   createAMI: async (amiName, instanceName) => {
     // aws ec2 create-image --instance-id $(aws-getField $1 InstanceId) --name $2
 
-    console.log(`Create ${amiName} AMI from ${instanceName}`);
+    console.log("createAMI", amiName, instanceName);
     const id = await ec2.getIdByName(instanceName);
     const params = {
       InstanceId: id,
       Name: amiName
     };
+    console.dir(params);
     const data = await new AWS.EC2().createImage(params).promise();
-    var tagparams = {
-      Resources: [data.ImageId],
-      Tags: [
-        {
-          Key: "Name",
-          Value: amiName
-        }
-      ]
+    console.dir(data);
+  },
+  getSnapShotId: async imageName => {
+    let data = await ec2.describeImages(imageName);
+    const snapshotId = data.Images[0].BlockDeviceMappings[0].Ebs.SnapshotId;
+    console.log("getSnapShotId", snapshotId);
+    return snapshotId;
+  },
+  deleteSnapShot: async snapshotId => {
+    const params = {
+      SnapshotId: snapshotId
     };
-    await new AWS.EC2().createTags(tagparams).promise();
+    const data = await new AWS.EC2().deleteSnapshot(params).promise();
+    return data;
+  },
+  deregisterAMI: async imageName => {
+    const imageId = await ec2.getImageId(imageName);
+    const params = {
+      ImageId: imageId
+    };
+    const data = await new AWS.EC2().deregisterImage(params).promise();
+    return data;
   }
 };
 
-main();
-async function main() {
-  const instance = "ppt41";
-  const ami = "AMI";
-  /*
+async function createAMIFromBookingInstance(instanceName, imageName) {
+  console.log("Create AMI from booking Instance");
   const state = await ec2.getImageState(imageName);
   if (state == "available") {
-    console.log(`Image ${imageName} ${ec2.getImageState(imageName)}`);
+    console.log("createAMIFromBookingInstance", imageName, state);
   } else {
-    console.log("Create AMI");
     await ec2.createAMI(imageName, instanceName);
     console.log("Wait for AMI to be available");
     let state = await ec2.getImageState(imageName);
+    let time = 0;
     while (state != "available") {
-      console.log(`Image State : ${state}`);
+      console.log("Image State", state, time, "sec");
       state = await ec2.getImageState(imageName);
+      await ec2.sleep(5000);
+      time = time + 5;
     }
   }
-  */
-  const imageId = "ami-f164291b";
-  await ec2.start(imageId);
+}
+
+async function launchEC2(imageName) {
+  console.log("Launch EC2 from ${imageName} and wait until all running");
   const novms = await ec2.getNoDays();
+  const imageId = await ec2.getImageId(imageName);
+  await ec2.start(imageId, novms);
+
+  // wait until all vms running
   let running = await ec2.getRunning();
+  let time = 0;
   while (novms != running.length) {
     running = await ec2.getRunning();
-    console.log(`Wait ${novms - running.length}`);
+    console.log("Wait", novms - running.length, "vms,", time, "sec");
+    await ec2.sleep(5000);
+    time = time + 5;
   }
-  await ec2.assignNOIP();
+
+  for (let i = 0; i < running.length; i++) {
+    const name = "ppt" + (i + 1);
+    const element = running[i];
+    await ec2.tag(element.id, "Name", name);
+    const url =
+            "http://praphan:password@dynupdate.no-ip.com/nic/update?hostname=" +
+            name +
+            ".ddns.net&myip=" +
+            element.ip;
+    await http.get(url);
+  }
 }
+
+async function deleteAMI(imageName) {
+  const snapshotId = await ec2.getSnapShotId(imageName);
+  const imageId = await ec2.getImageId(imageName);
+  await ec2.deregisterAMI(imageName);
+  console.log("Deregister AMI", imageId);
+  await ec2.deleteSnapShot(snapshotId);
+  console.log("Delete Snapshot", snapshotId);
+}
+
+async function main() {
+  const instanceName = "booking";
+  const imageName = "booking-ami";
+  await createAMIFromBookingInstance(instanceName, imageName);
+  await launchEC2(imageName);
+  await deleteAMI(imageName);
+}
+
+// main();
+
+exports.handler = async event => {
+  await main();
+};
