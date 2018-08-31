@@ -79,12 +79,12 @@ function aws-launch {
     then
       for ((i = 1; i <= 12; i++ ));
       do
-        aws ec2 run-instances --image-id "ami-f164291b" --key-name "ntp"  --instance-type "t2.micro" --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=ppt$i}]" --security-group-ids "sg-c9ff42b1"
+        aws ec2 run-instances --image-id "ami-09669db15f6395125" --key-name "ntp"  --instance-type "t2.micro" --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=ppt$i}]" --security-group-ids "sg-c9ff42b1"
       done
     else
       for ((i = 1; i <= $1; i++ ));
       do
-        aws ec2 run-instances --image-id "ami-f164291b" --key-name "ntp"  --instance-type "t2.micro" --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=ppt$i}]" --security-group-ids "sg-c9ff42b1"
+        aws ec2 run-instances --image-id "ami-09669db15f6395125" --key-name "ntp"  --instance-type "t2.micro" --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=ppt$i}]" --security-group-ids "sg-c9ff42b1"
       done
     fi
     aws-noip

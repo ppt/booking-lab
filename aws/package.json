@@ -4,6 +4,7 @@
   "description": "",
   "main": "lambda.js",
   "scripts": {
+    "test": "npm run ec2",
     "ami": "nodemon removeAMI.js",
     "ec2": "nodemon launchEC2.js"
   },

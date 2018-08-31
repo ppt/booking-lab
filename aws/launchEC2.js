@@ -77,15 +77,7 @@ const ec2 = {
     console.log(data);
   },
   getRunning: async () => {
-    const params = {
-      Filters: [
-        {
-          Name: "tag:Group",
-          Values: ["booking"]
-        }
-      ]
-    };
-    const data = await new AWS.EC2().describeInstances(params).promise();
+    const data = await new AWS.EC2().describeInstances({}).promise();
     let running = [];
     data.Reservations.forEach(r => {
       r.Instances.forEach(e => {
@@ -100,7 +92,52 @@ const ec2 = {
     });
     return running;
   },
-  describeImages: async name => {
+  getRunningByGroup: async group => {
+    const params = {
+      Filters: [
+        {
+          Name: "tag:Group",
+          Values: [group]
+        }
+      ]
+    };
+    const data = await new AWS.EC2().describeInstances(params).promise();
+    let running = [];
+    data.Reservations.forEach(r => {
+      r.Instances.forEach(e => {
+        console.dir(e.State);
+        if (e.State.Name == "running") {
+          running.push({
+            id: e.InstanceId,
+            ip: e.PublicIpAddress,
+            state: e.State.Name
+          });
+        }
+      });
+    });
+    return running;
+  },
+  describeInstances: async id => {
+    const params = {
+      InstanceIds: [id]
+    };
+    const data = await new AWS.EC2().describeInstances(params).promise();
+    return data;
+  },
+  describeImagesById: async id => {
+    const data = await new AWS.EC2()
+      .describeImages({
+        ImageIds: [id]
+      })
+      .promise();
+    const img = data.Images[0];
+    return {
+      id: img.ImageId,
+      state: img.State,
+      snapshot: img.BlockDeviceMappings[0].Ebs.SnapshotId
+    };
+  },
+  describeImagesByName: async name => {
     const images = await new AWS.EC2()
       .describeImages({
         Filters: [
@@ -138,6 +175,14 @@ const ec2 = {
     console.dir(params);
     const data = await new AWS.EC2().createImage(params).promise();
     console.dir(data);
+  },
+  describeSnapshot: async id => {
+    const data = await new AWS.EC2()
+      .describeSnapshots({
+        SnapshotIds: [id]
+      })
+      .promise();
+    return data.Snapshots[0];
   },
   getSnapShotId: async imageName => {
     let data = await ec2.describeImages(imageName);
@@ -184,11 +229,12 @@ async function createAMIFromBookingInstance(instanceName, imageName) {
 async function launchEC2(imageName) {
   console.log("Launch EC2 from ${imageName} and wait until all running");
   const novms = await ec2.getNoDays();
+  const group = "booking";
   const imageId = await ec2.getImageId(imageName);
   await ec2.start(imageId, novms);
 
   // wait until all vms running
-  let running = await ec2.getRunning();
+  let running = await ec2.getRunningByGroup(group);
   let time = 0;
   while (novms != running.length) {
     running = await ec2.getRunning();
@@ -229,6 +275,30 @@ async function main() {
 
 // main();
 
-exports.handler = async event => {
-  await main();
-};
+// exports.handler = async event => {
+//   await main();
+// }
+
+test();
+
+async function test() {
+  const running = await ec2.getRunning();
+  let ami = "";
+  // console.dir(running, { depth: null });
+  for (let i = 0; i < running.length; i++) {
+    const el = running[i];
+    let data = await ec2.describeInstances(el.id);
+    const instance = data.Reservations[0].Instances[0];
+    ami = instance.ImageId;
+    console.log(
+      `${i}: ${instance.Tags[0].Value} ${instance.InstanceId} ${
+        instance.ImageId
+      }`
+    );
+  }
+  console.log(ami);
+  const img = await ec2.describeImagesById(ami);
+  console.dir(img, { depth: null });
+  const snapshot = await ec2.describeSnapshot(img.snapshot);
+  console.dir(snapshot, { depth: null });
+}
