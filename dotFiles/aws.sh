@@ -6,6 +6,8 @@
 # using by s3-editor
 export AWS_REGION=ap-southeast-1
 export EDITOR=/usr/bin/nano
+export AMI_IMAGE=ami-04e9608193dc069f4
+export EC2_VPC=sg-0ea69fa9251003612
 
 function aws-getField {
   aws ec2 describe-instances --filters "Name=tag:Name,Values=ppt$1" --query "Reservations[*].Instances[*].$2"  --output=text
@@ -79,15 +81,19 @@ function aws-launch {
     then
       for ((i = 1; i <= 12; i++ ));
       do
-        aws ec2 run-instances --image-id "ami-09669db15f6395125" --key-name "ntp"  --instance-type "t2.micro" --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=ppt$i}]" --security-group-ids "sg-c9ff42b1"
+        aws ec2 run-instances --image-id "$AMI_IMAGE" --key-name "ntp"  --instance-type "t2.micro" --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=ppt$i}]" --security-group-ids "$EC2_VPC"
       done
     else
       for ((i = 1; i <= $1; i++ ));
       do
-        aws ec2 run-instances --image-id "ami-09669db15f6395125" --key-name "ntp"  --instance-type "t2.micro" --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=ppt$i}]" --security-group-ids "sg-c9ff42b1"
+        aws ec2 run-instances --image-id "$AMI_IMAGE" --key-name "ntp"  --instance-type "t2.micro" --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=ppt$i}]" --security-group-ids "$EC2_VPC"
       done
     fi
     aws-noip
+}
+
+function aws-ssh-direct {
+  ssh -i ~/Dropbox/booking/Docker/ntp.pem -o StrictHostKeyChecking=no ubuntu@$1
 }
 
 function aws-ssh {
