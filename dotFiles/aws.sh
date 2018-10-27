@@ -6,7 +6,7 @@
 # using by s3-editor
 export AWS_REGION=ap-southeast-1
 export EDITOR=/usr/bin/nano
-export AMI_IMAGE=ami-04e9608193dc069f4
+export AMI_IMAGE=ami-0fc400d3cc4f96d01
 export EC2_VPC=sg-0ea69fa9251003612
 
 function aws-getField {
