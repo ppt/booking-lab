@@ -7,7 +7,7 @@
 export AWS_REGION=ap-southeast-1
 export EDITOR=/usr/bin/nano
 # export AMI_IMAGE=ami-0d06e080e9563c354
-export AMI_IMAGE=ami-0b936717f9709e7fd
+export AMI_IMAGE=ami-0c45096b9642cfdb3
 export EC2_VPC=sg-0ea69fa9251003612
 
 function aws-getField {
