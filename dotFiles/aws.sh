@@ -6,10 +6,12 @@
 # using by s3-editor
 export AWS_REGION=ap-southeast-1
 export EDITOR=/usr/bin/nano
-# export AMI_IMAGE=ami-0d06e080e9563c354
-export AMI_IMAGE=ami-0c45096b9642cfdb3
-export EC2_VPC=sg-0ea69fa9251003612
-
+# 2018
+# export AMI_IMAGE=ami-0c45096b9642cfdb3
+# export EC2_VPC=sg-0ea69fa9251003612
+# 2019
+export AMI_IMAGE=ami-0bcaf0ba0cdbdc4b8
+export EC2_VPC=sg-03f90223bc23e7896
 function aws-getField {
   aws ec2 describe-instances --filters "Name=tag:Name,Values=ppt$1" --query "Reservations[*].Instances[*].$2"  --output=text
 
