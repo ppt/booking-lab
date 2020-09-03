@@ -10,9 +10,9 @@ def hostCmd(host)
   elsif host.downcase == 'mac'
     "praphan@ppt-mac.ddns.net -p 2625"
   elsif host.downcase == 'macppt'
-    "praphan@ppt-macppt.ddns.net -p 2625"
+    "praphan@ppt-macppt.ddns.net"
   elsif host.downcase == 'macntp'
-    "praphan@ppt-macntp.ddns.net -p 2625"
+    "nattaya@ppt-macntp.ddns.net"
   else
     "-i ~/Dropbox/booking/Docker/ntp.pem ubuntu@ppt#{host.downcase.gsub('aws','')}.ddns.net"
   end

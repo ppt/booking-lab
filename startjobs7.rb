@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 require 'yaml'
 require './ssh-lib2.rb'
+require "time"
 
 if ARGV.length == 0
   jobs = 'jobs.yml'
@@ -14,32 +15,39 @@ else
 end
 starttime = '21:59:00'
 
+p jobs,passwd
+
 courses = YAML.load_file jobs
 passwd = YAML.load_file passwd
 
-def dockerRunCmd(user, passwd, course, seq, starttime)
-  "docker run -it phan/virgin casperjs --user=#{user} --password=#{passwd} --seq='#{seq}' --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' virgin-seq.js"
+$dir_name = "logs/#{Time.now.strftime("%d-%m-%Y")}"
+`mkdir logs`
+`mkdir #{$dir_name}`
+
+def runCmd(user, passwd, course, seq, starttime,host,session)
+  # "~/booking2/booking2.js > logs/#{Time.now.strftime("%d-%m-%Y")}/#{host}-#{session}"
+  if host.downcase.include? 'aws'
+    "setsid /home/ubuntu/booking2/booking2.js --user=#{user} --password=#{passwd} --seq=#{seq} --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' >#{host}-#{session} 2>&1 &"
+  else
+    "nohup ~/booking2/booking2.js --user=#{user} --password=#{passwd} --seq='#{seq}' --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' >#{host}-#{session} 2>&1 &"
+  end
 end
 
 # def booking(host, user, passwd, course, seq, session, starttime)
 def booking(host, session, courses)
   seqCmd = courses.map{|x|
     user, passwd, course, seq, starttime = x
-    runCmd(user, passwd, course, seq, starttime)
+    runCmd(user, passwd, course, seq, starttime, host, session)
   }.join(' ; ')
   # user, passwd, course, seq, starttime = courses
-  s = "#{$sshCmd} #{hostCmd(host)} #{tmuxSession(session)} \"'#{seqCmd}' Enter\""
-  p s
-  `#{s}`
+  s = "#{$sshCmd} #{hostCmd(host)} \"#{seqCmd}\""
+  puts s
+  # `#{s}`
 end
 
 courses.each_with_index do |(key, value), index|
-  d_stop key
-  puts "#{key}"
   session = 1
   for el in value do
-    p "#{$sshCmd} #{hostCmd(key)} #{tmuxNewSession(session)}"
-    `#{$sshCmd} #{hostCmd(key)} #{tmuxNewSession(session)}`
     # check if multiple entry    
     if el[0].kind_of?(Array) then
       courses = []

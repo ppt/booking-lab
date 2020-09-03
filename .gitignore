@@ -493,3 +493,11 @@ ASALocalRun/
 
 
 # End of https://www.gitignore.io/api/git,node,ruby,macos,visualstudio
+**/*.yml
+**/*.tar
+*.yml
+logs/
+TODO
+**/aws*-*
+log
+macntp-*
