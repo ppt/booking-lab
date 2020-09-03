@@ -24,9 +24,9 @@ passwd = YAML.load_file passwd
 
 def runCmd(user, passwd, course, seq, starttime,host,session)
   if host.downcase.include? 'aws'
-    "/home/ubuntu/booking2/booking2.js --user=#{user} --password=#{passwd} --seq=#{seq} --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}'"
+    "setsid /home/ubuntu/booking2/booking2.js --user=#{user} --password=#{passwd} --seq=#{seq} --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' >#{host}-#{session} 2>&1 &"
   else
-    "booking2.js --user=#{user} --password=#{passwd} --seq=#{seq} --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}'"
+    "nohup ~/booking2/booking2.js --user=#{user} --password=#{passwd} --seq='#{seq}' --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' >#{host}-#{session} 2>&1 &"
   end
 end
 
@@ -37,11 +37,7 @@ def booking(host, session, courses)
     runCmd(user, passwd, course, seq, starttime, host, session)
   }.join(' ; ')
   # user, passwd, course, seq, starttime = courses
-  if host.downcase.include? 'aws'
-    s = "#{$sshCmd} #{hostCmd(host)} #{seqCmd} >#{host}-#{session} 2>&1 &"
-  else
-    s = "#{seqCmd} >#{host}-#{session} 2>&1 &"
-  end
+  s = "#{seqCmd}"
   puts s
 end
 

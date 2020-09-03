@@ -42,7 +42,7 @@ def booking(host, session, courses)
   # user, passwd, course, seq, starttime = courses
   s = "#{$sshCmd} #{hostCmd(host)} \"#{seqCmd}\""
   puts s
-  # `#{s}`
+  `#{s}`
 end
 
 courses.each_with_index do |(key, value), index|
