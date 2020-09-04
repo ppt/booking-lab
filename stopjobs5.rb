@@ -47,7 +47,7 @@ def stopPCMac(user,host)
       `scp #{user}@ppt-#{host}.ddns.net:#{fname} #{$dir_name}`
       # `ssh -q -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null"  #{user}@ppt-#{host}.ddns.net rm #{fname}`
     end
-    `ssh -q -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null"  #{user}@ppt-#{host}.ddns.net pkill -f booking2`
+    `ssh -q -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null"  #{user}@ppt-#{host}.ddns.net pkill -f booking`
   end
 end
 
