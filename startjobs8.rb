@@ -27,9 +27,9 @@ $dir_name = "logs/#{Time.now.strftime("%d-%m-%Y")}"
 def runCmd(user, passwd, course, seq, starttime,host,session)
   # "~/booking2/booking3.js > logs/#{Time.now.strftime("%d-%m-%Y")}/#{host}-#{session}"
   if host.downcase.include? 'aws'
-    "setsid /home/ubuntu/booking2/booking3.js --user=#{user} --password=#{passwd} --seq=#{seq} --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' >#{host}-#{session} 2>&1 &"
+    "setsid /home/ubuntu/booking2/booking3.js --user=#{user} --password=#{passwd} --seq=#{seq} --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' >#{host}-3-#{session} 2>&1 &"
   else
-    "nohup ~/booking2/booking3.js --user=#{user} --password=#{passwd} --seq='#{seq}' --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' >#{host}-#{session} 2>&1 &"
+    "nohup ~/booking2/booking3.js --user=#{user} --password=#{passwd} --seq='#{seq}' --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' >#{host}-3-#{session} 2>&1 &"
   end
 end
 
