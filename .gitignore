@@ -498,6 +498,5 @@ ASALocalRun/
 *.yml
 logs/
 TODO
-**/aws*-*
 log
 macntp-*
