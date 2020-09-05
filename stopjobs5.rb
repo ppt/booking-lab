@@ -2,7 +2,7 @@
 
 # scp -i ~/Dropbox/booking/Docker/ntp.pem ubuntu@ppt1.ddns.net:aws1-1 .
 
-require "./aws-lib.rb"
+require "./aws-lib2.rb"
 require "./azure-lib.rb"
 require "./ssh-lib2.rb"
 require "./pc-lib3.rb"
