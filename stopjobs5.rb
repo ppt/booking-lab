@@ -22,7 +22,7 @@ $dir_name = "logs/#{Time.now.strftime("%d-%m-%Y")}"
 `mkdir #{$dir_name}`
 
 def awsGetLogs(aws_id)
-  `ssh -q -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null" -i ~/Dropbox/booking/Docker/ntp.pem ubuntu@ppt#{aws_id}.ddns.net ls`.split("\n").select {|name|name.downcase.include? "aws" }
+  `#{$sshCmd} -i ~/Dropbox/booking/Docker/ntp.pem ubuntu@ppt#{aws_id}.ddns.net ls`.split("\n").select {|name|name.downcase.include? "aws" }
 end
 
 # aws
