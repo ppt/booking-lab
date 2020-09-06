@@ -38,16 +38,17 @@ def stopAWS
 end
 
 def pptGetLogs(user, host)
-  `ssh -q -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null"  #{user}@ppt-#{host}.ddns.net ls`.split("\n").select {|name|name.downcase.include? "#{host}" }
+  `#{$sshCmd} #{user}@ppt-#{host}.ddns.net ls`.split("\n").select {|name|name.downcase.include? "#{host}" }
 end
 
 def stopPCMac(user,host)
   if pcRunning?(user,host)
+    puts "#{host} running"
     for fname in pptGetLogs(user,host) do
-      `scp #{user}@ppt-#{host}.ddns.net:#{fname} #{$dir_name}`
+      `scp  -q -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null" #{user}@ppt-#{host}.ddns.net:#{fname} #{$dir_name}`
       # `ssh -q -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null"  #{user}@ppt-#{host}.ddns.net rm #{fname}`
     end
-    `ssh -q -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null"  #{user}@ppt-#{host}.ddns.net pkill -f booking`
+    `#{$sshCmd} #{user}@ppt-#{host}.ddns.net pkill -f booking`
   end
 end
 
