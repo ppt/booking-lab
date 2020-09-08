@@ -30,9 +30,8 @@ end
 def stopAWS
   for i in awsGetRunning() do
     puts "aws#{i} running"
-    `ssh-keyscan -H ppt#{i}.ddns.net >> ~/.ssh/known_hosts >/dev/null 2>&1`
     for fname in awsGetLogs(i) do
-      `scp -i ~/Dropbox/booking/Docker/ntp.pem ubuntu@ppt#{i}.ddns.net:/home/ubuntu/#{fname} #{$dir_name}`
+      `scp -q  -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no -i ~/Dropbox/booking/Docker/ntp.pem ubuntu@ppt#{i}.ddns.net:/home/ubuntu/#{fname} #{$dir_name}`
 
     end
     # awsTerminate i
