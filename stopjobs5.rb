@@ -13,7 +13,7 @@ def containerID(s)
 end
 
 if ARGV.empty?
-  puts "Sleep #{Time.parse("22:09") - Time.now} seconds"
+  puts "Sleep #{Time.parse("22:20") - Time.now} seconds"
   sleep(Time.parse("22:09") - Time.now)
 end
 
