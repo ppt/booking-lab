@@ -3,6 +3,10 @@ require 'yaml'
 require './ssh-lib2.rb'
 require "time"
 
+starttime = '21:59:00'
+$sleeptime = 400
+$checktime = '22:00:05'
+
 if ARGV.length == 0
   jobs = 'jobs.yml'
   passwd = 'user-passwd.yml'
@@ -13,7 +17,6 @@ else
   jobs = ARGV[0]
   passwd = ARGV[1]
 end
-starttime = '21:59:00'
 
 p jobs,passwd
 
@@ -26,9 +29,9 @@ $dir_name = "logs/#{Time.now.strftime("%d-%m-%Y")}"
 
 def runCmd(user, passwd, course, seq, starttime,host,session)
   if host.downcase.include? 'aws'
-    "setsid /home/ubuntu/booking2/booking4.js --user=#{user} --password=#{passwd} --seq=#{seq} --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' >#{host}-3-#{session} 2>&1 &"
+    "setsid /home/ubuntu/booking2/booking5.js --user=#{user} --password=#{passwd} --seq=#{seq} --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --checktime='#{$checktime}' >#{host}-5-#{session} 2>&1 &"
   else
-    "nohup ~/booking2/booking4.js --user=#{user} --password=#{passwd} --seq='#{seq}' --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' >#{host}-3-#{session} 2>&1 &"
+    "nohup ~/booking2/booking5.js --user=#{user} --password=#{passwd} --seq='#{seq}' --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --checktime='#{$checktime}' >#{host}-5-#{session} 2>&1 &"
   end
 end
 
