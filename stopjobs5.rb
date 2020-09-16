@@ -56,3 +56,4 @@ end
 stopAWS()
 stopPCMac('praphan', 'macppt')
 stopPCMac('nattaya', 'macntp')
+stopPCMac('praphan', 'pc')

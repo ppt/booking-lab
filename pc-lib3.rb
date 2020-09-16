@@ -7,7 +7,11 @@ def pcGetLogs(host, container_id)
 end  
 
 def pcRunning?(user, host)
-  `#{$sshCmd} #{hostCmd(host)} pwd` == "/Users/#{user}\n"
+  if host == 'pc'
+    `#{$sshCmd} #{hostCmd(host)} pwd` == "/home/praphan\n"
+  else
+    `#{$sshCmd} #{hostCmd(host)} pwd` == "/Users/#{user}\n"
+  end
 end
 
 def pcStop(host)

@@ -4,9 +4,9 @@ require './ssh-lib2.rb'
 require "time"
 
 starttime = '21:59:00'
-$sleeptime = 400
-$checktime = '22:00:05'
-$chromeTimeout = 55000;
+$sleeptime = 300
+$checktime = '21:59:40'
+$chromeTimeout = 600000;
 
 
 if ARGV.length == 0
