@@ -12,10 +12,10 @@ def containerID(s)
   s.split(' ')[0]
 end
 
-if ARGV.empty?
-  puts "Sleep #{Time.parse("22:20") - Time.now} seconds"
-  sleep(Time.parse("22:09") - Time.now)
-end
+# if ARGV.empty?
+#   puts "Sleep #{Time.parse("22:20") - Time.now} seconds"
+#   sleep(Time.parse("22:09") - Time.now)
+# end
 
 $dir_name = "logs/#{Time.now.strftime("%d-%m-%Y")}"
 `mkdir logs`
@@ -59,7 +59,4 @@ def stopPCMac(user,host)
   end
 end
 
-stopAWS()
-stopPCMac('praphan', 'macppt')
-stopPCMac('nattaya', 'macntp')
 stopPCMac('praphan', 'pc')
