@@ -34,7 +34,7 @@ def stopAWS
       `scp -q  -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no -i ~/Dropbox/booking/Docker/ntp.pem ubuntu@ppt#{i}.ddns.net:/home/ubuntu/#{fname} #{$dir_name}`
 
     end
-    # awsTerminate i
+    awsTerminate i
   end
 end
 
