@@ -49,8 +49,8 @@ Dir.glob(latestDir+'*') { |fname|
 puts 'NOT OK'
 puts '='*6
 puts "#{'Class'.ljust(20)}\t#{'ID'.ljust(10)}\t#{'File Name'.ljust(12)}\t#{'End Check'.ljust(12)}  #{'Booking'.ljust(12)}  #{'Click OK'.ljust(12)}  #{'END'.ljust(12)}"
-printLogs (notok.map { |x| x.map { |y| (if y == nil then '' else y end) } }).sort_by { |x| [x[3],x[2],x[1]]}
+printLogs (notok.map { |x| x.map { |y| (if y == nil then '' else y end) } }).sort_by { |x| [x[-3],x[3],x[2],x[1]]}
 puts 'OK'
 puts '='*2
 puts "#{'Class'.ljust(20)}\t#{'ID'.ljust(10)}\t#{'File Name'.ljust(12)}\t#{'End Check'.ljust(12)}  #{'Booking'.ljust(12)}  #{'Click OK'.ljust(12)}  #{'END'.ljust(12)}"
-printLogs (ok.map { |x| x.map { |y| (if y == nil then '' else y end) } }).sort_by { |x| [x[3],x[2],x[1]]}
+printLogs (ok.map { |x| x.map { |y| (if y == nil then '' else y end) } }).sort_by { |x| [x[-3],x[3],x[2],x[1]]}
