@@ -26,10 +26,16 @@ def getTimes(lines)
   ]
 end
 
-logsDir = './logs/'
-# logsDir = '/Users/praphan/Dropbox/booking/logs/'
+if ARGV.length == 0
+  logsDir = './logs/'
+  # logsDir = '/Users/praphan/Dropbox/booking/logs/'
+else
+  logsDir = ARGV[0]
+end
 latestDir = Dir.glob(logsDir+'*/').max_by {|f| 
-  File.mtime(f)}
+  File.mtime(f)
+}
+
 ok = []
 notok = []
 Dir.glob(latestDir+'*') { |fname|
