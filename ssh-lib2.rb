@@ -11,6 +11,8 @@ def hostCmd(host)
     "praphan@ppt-mac.ddns.net -p 2625"
   elsif host.downcase == 'macppt'
     "praphan@ppt-macppt.ddns.net"
+  elsif host.downcase == 'play'
+    "praphan@ppt-macppt.ddns.net"
   elsif host.downcase == 'macntp'
     "nattaya@ppt-macntp.ddns.net"
   else
