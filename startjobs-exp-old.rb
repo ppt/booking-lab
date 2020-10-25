@@ -32,11 +32,11 @@ $dir_name = "logs/#{Time.now.strftime("%d-%m-%Y")}"
 
 def runCmd(user, passwd, course, seq, starttime,host,session)
   if host.downcase.include? 'aws'
-    "setsid /home/ubuntu/booking2/booking7.js --user=#{user} --password=#{passwd} --seq=#{seq} --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --pollTimeout=#{$pollTimeout} --checktime='#{$checktime}' --chrometimeout=#{$chromeTimeout} >#{host}-5-#{session} 2>&1 &"
+    "setsid /home/ubuntu/booking2/booking6.js --user=#{user} --password=#{passwd} --seq=#{seq} --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --pollTimeout=#{$pollTimeout} --checktime='#{$checktime}' --chrometimeout=#{$chromeTimeout} >#{host}-5-#{session} 2>&1 &"
   elsif host.downcase.include? 'pc'
-    "setsid /home/praphan/booking2/booking7-pc.js --user=#{user} --password=#{passwd} --seq=#{seq} --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --pollTimeout=#{$pollTimeout} --checktime='#{$checktime}' --chrometimeout=#{$chromeTimeout} >#{host}-5-#{session} 2>&1 &"
+    "setsid /home/praphan/booking2/booking6-pc.js --user=#{user} --password=#{passwd} --seq=#{seq} --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --pollTimeout=#{$pollTimeout} --checktime='#{$checktime}' --chrometimeout=#{$chromeTimeout} >#{host}-5-#{session} 2>&1 &"
   else
-    "nohup ~/booking2/booking7.js --user=#{user} --password=#{passwd} --seq='#{seq}' --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --pollTimeout=#{$pollTimeout} --checktime='#{$checktime}' --chrometimeout=#{$chromeTimeout} >#{host}-5-#{session} 2>&1 &"
+    "nohup ~/booking2/booking6.js --user=#{user} --password=#{passwd} --seq='#{seq}' --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --pollTimeout=#{$pollTimeout} --checktime='#{$checktime}' --chrometimeout=#{$chromeTimeout} >#{host}-5-#{session} 2>&1 &"
   end
 end
 
