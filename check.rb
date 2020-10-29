@@ -1,73 +1,65 @@
 #!/usr/bin/env ruby
-require "./aws-lib.rb"
+
+# scp -i ~/Dropbox/booking/Docker/ntp.pem ubuntu@ppt1.ddns.net:aws1-1 .
+
+require "./aws-lib2.rb"
 require "./azure-lib.rb"
 require "./ssh-lib2.rb"
-require "./pc-lib2.rb"
+require "./pc-lib3.rb"
 require "time"
-require "yaml"
 
 def containerID(s)
   s.split(' ')[0]
 end
 
-courses = YAML.load_file ARGV[0]
-
-def logsPCMac(host)
-  if pcRunning?(host)
-    puts "#{host}"
-    puts '='*("#{host}".length)
-    for s in pcGetContainers(host) do
-      puts "#{host}-#{containerID(s)}"
-      puts pcGetLogs(host,containerID(s))
-    end
-  end
+if ARGV.empty?
+  puts "Sleep #{Time.parse("22:30") - Time.now} seconds"
+  sleep(Time.parse("22:30") - Time.now)
 end
 
-for host in courses.keys do
-  host = host.downcase
-  if ['pc','mac','localhost','macppt','macntp'].include? host 
-    logsPCMac(host)
-  elsif host.include? 'aws'
-    i = host.scan(/\d+/)[0]
-    puts "aws#{i}"
-    puts "="*("aws#{i}".length)
-    for s in awsGetContainers(i) do
-        puts "aws#{i}-#{containerID(s)}"
-        puts awsGetLogs(i,containerID(s))
-    end
-  elsif host.include? 'azure'
-    i = host.scan(/\d+/)[0]
-    puts "azure#{i}"
-    puts "="*("azure#{i}".length)
-    for s in azureGetContainers(i) do
-      puts "azure#{i}-#{containerID(s)}"
-      puts azureGetLogs(i,containerID(s))
-    end
-  end
+$dir_name = "logs/#{Time.now.strftime("%d-%m-%Y")}"
+`mkdir logs`
+`mkdir #{$dir_name}`
+`echo "" > ~/.ssh/known_hosts`
+
+def awsGetLogs(aws_id)
+  fnames = `#{$sshCmd} -i ~/Dropbox/booking/Docker/ntp.pem ubuntu@ppt#{aws_id}.ddns.net ls`.split("\n").select {|name|name.downcase.include? "aws" }
 end
 
-exit
 # aws
+def stopAWS
+  for i in awsGetRunning() do
+    puts "aws#{i} running"
+    for fname in awsGetLogs(i) do
+      `scp -q  -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no -i ~/Dropbox/booking/Docker/ntp.pem ubuntu@ppt#{i}.ddns.net:/home/ubuntu/#{fname} #{$dir_name}`
 
-# azure
-for i in azureGetRunning() do
-
-end
-
-# pc,mac
-def logsPCMac(host)
-  if pcRunning?(host)
-    puts "#{host}"
-    puts '='*("#{host}".length)
-    for s in pcGetContainers(host) do
-      puts "{host}-#{containerID(s)}"
-      puts pcGetLogs(host,containerID(s))
     end
+    # awsTerminate i
   end
 end
-# logsPCMac('localhost')
-logsPCMac('pc')
-logsPCMac('mac')
-logsPCMac('macppt')
-logsPCMac('macntp')
 
+def pptGetLogs(user, host)
+  `#{$sshCmd} #{hostCmd(host)} ls`.split("\n").select {|name|name.downcase.include? "#{host}" }
+end
+
+def stopPCMac(user,host)
+  if pcRunning?(user,host)
+    puts "#{host} running"
+    for fname in pptGetLogs(user,host) do
+      if host == 'pc'
+
+        `scp  -q -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null"  -P2625 #{user}@ppt-#{host}.ddns.net:#{fname} #{$dir_name}`
+      elsif
+        `scp  -q -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null" #{hostCmd(host)}:#{fname} #{$dir_name}`
+        
+      end
+      # `ssh -q -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null"  #{user}@ppt-#{host}.ddns.net rm #{fname}`
+    end
+    # `#{$sshCmd} #{hostCmd(host)} pkill -f booking`
+  end
+end
+
+stopAWS()
+stopPCMac('praphan', 'macppt')
+stopPCMac('nattaya', 'macntp')
+stopPCMac('praphan', 'pc')
