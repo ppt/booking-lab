@@ -5,71 +5,11 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "node",
-      "request": "launch",
-      "name": "node aws/launchEC2.js",
-      "program": "${workspaceFolder}/aws/launchEC2.js"
-    },
-    {
       "name": "ruby launch.rb",
       "type": "Ruby",
       "request": "launch",
       "cwd": "${workspaceRoot}",
-      "program": "${workspaceRoot}/launch.rb"
-    },
-    {
-      "name": "ruby calendar.rb",
-      "type": "Ruby",
-      "request": "launch",
-      "cwd": "${workspaceRoot}",
-      "program": "${workspaceRoot}/chk-calendar.rb"
-    },
-    {
-      "name": "check",
-      "type": "Ruby",
-      "request": "launch",
-      "cwd": "${workspaceRoot}",
-      "program": "${workspaceRoot}/check.rb",
-      "args": ["jobs-seq-mac.yml"]
-    },
-    {
-      "name": "report",
-      "type": "Ruby",
-      "request": "launch",
-      "cwd": "${workspaceRoot}",
-      "program": "${workspaceRoot}/report.rb"
-    },
-    {
-      "name": "stopjobs2",
-      "type": "Ruby",
-      "request": "launch",
-      "cwd": "${workspaceRoot}",
-      "program": "${workspaceRoot}/stopjobs2.rb",
-      "args": ["jobs.yml"]
-    },
-    {
-      "name": "startjobs-mac",
-      "type": "Ruby",
-      "request": "launch",
-      "cwd": "${workspaceRoot}",
-      "program": "${workspaceRoot}/startjobs5-seq.rb",
-      "args": ["jobs-seq-mac.yml"]
-    },
-    {
-      "name": "startjobs4",
-      "type": "Ruby",
-      "request": "launch",
-      "cwd": "${workspaceRoot}",
-      "program": "${workspaceRoot}/startjobs4.rb",
-      "args": ["jobs.yml"]
-    },
-    {
-      "name": "startjobs4-seq",
-      "type": "Ruby",
-      "request": "launch",
-      "cwd": "${workspaceRoot}",
-      "program": "${workspaceRoot}/startjobs4-seq.rb",
-      "args": ["jobs-seq.yml"]
+      "program": "${workspaceRoot}/lab/ruby/timelab.rb"
     }
   ]
 }
