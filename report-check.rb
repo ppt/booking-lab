@@ -42,9 +42,21 @@ Dir.glob(latestDir+'*') { |fname|
   host = File.basename(fname).split(/-/).first
   lines = File.readlines(fname)
   id,seq,course = lines[0].split(' ')
-  ok.push([fname,id,seq,course,lines[-1]])
+  if lines[-2].include?(' : Check Time Sleep') then
+    ok.push([fname,id,seq,course,lines[-1]])
+  else
+    notok.push([fname,id,seq,course,lines[-1]])
+  end
+
 }
 
+# printLogs (ok.map { |x| x.map { |y| (if y == nil then '' else y end) } }).sort_by { |x| [x[-3],x[3],x[2],x[1]]}
+puts 'NOT OK'
+puts '='*6
+puts "#{'Class'.ljust(10)}\t#{'ID'.ljust(10)}\t#{'File Name'.ljust(12)}\t#{'Last Line'.ljust(24)}"
+printLogs (notok)
+puts 'OK'
+puts '='*2
 puts "#{'Class'.ljust(10)}\t#{'ID'.ljust(10)}\t#{'File Name'.ljust(12)}\t#{'Last Line'.ljust(24)}"
 printLogs (ok)
-# printLogs (ok.map { |x| x.map { |y| (if y == nil then '' else y end) } }).sort_by { |x| [x[-3],x[3],x[2],x[1]]}
+
