@@ -43,9 +43,9 @@ Dir.glob(latestDir+'*') { |fname|
   lines = File.readlines(fname)
   id,seq,course = lines[0].split(' ')
   if lines[-2].include?(' : Check Time Sleep') then
-    ok.push([fname,id,seq,course,lines[-1]])
+    ok.push([fname,id,seq,course,lines[-2]+"\n"+lines[-1]])
   else
-    notok.push([fname,id,seq,course,lines[-1]])
+    notok.push([fname,id,seq,course,lines[-2]+"\n"+lines[-1]])
   end
 
 }
