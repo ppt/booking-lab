@@ -3,12 +3,12 @@ require 'yaml'
 require './ssh-lib2.rb'
 require "time"
 
-starttime = '21:59:00'
-delay = 2 # in seconds
+starttimeS = Time.parse '19:24:50'
+delay = 25 # in seconds
 $sleeptime = 100
-$checktime = '21:59:55'
+$checktime = '21:59:57'
 $chromeTimeout = 600000;
-$pollTimeout = 2000
+$pollTimeout = 4000
 
 
 if ARGV.length == 0
