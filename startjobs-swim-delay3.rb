@@ -3,10 +3,11 @@ require 'yaml'
 require './ssh-lib2.rb'
 require "time"
 
-starttimeS = Time.parse '20:00:00'
+starttimeS = Time.parse '00:00:30'
+
 delay = 25 # in seconds
 $sleeptime = 100
-$checktime = '21:59:57'
+$checktime = '00:03:00'
 $chromeTimeout = 600000;
 $pollTimeout = 4000
 
@@ -30,14 +31,16 @@ passwd = YAML.load_file passwd
 $dir_name = "logs/#{Time.now.strftime("%d-%m-%Y")}"
 `mkdir logs`
 `mkdir #{$dir_name}`
+`rm ~/Dropbox/booking/macntp-swim-5-*`
+`pkill -f "booking-swim3"`
 
 def runCmd(user, passwd, course, seq, starttime,host,session)
   if host.downcase.include? 'aws'
-    "setsid /home/ubuntu/booking2/booking-swim.js --user=#{user} --password=#{passwd} --seq=#{seq} --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --pollTimeout=#{$pollTimeout} --checktime='#{$checktime}' --chrometimeout=#{$chromeTimeout} >#{host}-5-#{session} 2>&1 &"
+    "setsid /home/ubuntu/booking2/booking-swim3.js --user=#{user} --password=#{passwd} --seq=#{seq} --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --pollTimeout=#{$pollTimeout} --checktime='#{$checktime}' --chrometimeout=#{$chromeTimeout} >#{host}-swim-5-#{session} 2>&1 &"
   elsif host.downcase.include? 'pc'
-    "setsid /home/praphan/booking2/booking-swim-pc.js --user=#{user} --password=#{passwd} --seq=#{seq} --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --pollTimeout=#{$pollTimeout} --checktime='#{$checktime}' --chrometimeout=#{$chromeTimeout} >#{host}-5-#{session} 2>&1 &"
+    "setsid /home/praphan/booking2/booking-swim-pc.js --user=#{user} --password=#{passwd} --seq=#{seq} --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --pollTimeout=#{$pollTimeout} --checktime='#{$checktime}' --chrometimeout=#{$chromeTimeout} >#{host}-swim-5-#{session} 2>&1 &"
   else
-    "nohup ~/booking2/booking-swim.js --user=#{user} --password=#{passwd} --seq='#{seq}' --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --pollTimeout=#{$pollTimeout} --checktime='#{$checktime}' --chrometimeout=#{$chromeTimeout} >#{host}-5-#{session} 2>&1 &"
+    "nohup ~/booking2/booking-swim3.js --user=#{user} --password=#{passwd} --seq='#{seq}' --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --pollTimeout=#{$pollTimeout} --checktime='#{$checktime}' --chrometimeout=#{$chromeTimeout} >~/Dropbox/booking/#{host}-swim-5-#{session} 2>&1 &"
   end
 end
 

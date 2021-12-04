@@ -3,7 +3,7 @@ require 'yaml'
 require './ssh-lib2.rb'
 require "time"
 
-starttime = '21:59:00'
+starttime = '20:31:00'
 $sleeptime = 100
 $checktime = '21:59:55'
 $chromeTimeout = 600000;

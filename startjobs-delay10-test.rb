@@ -3,12 +3,12 @@ require 'yaml'
 require './ssh-lib2.rb'
 require "time"
 
-starttimeS = Time.parse '20:00:00'
-delay = 25 # in seconds
+starttimeS = Time.parse '10:37:00'
+delay = 20 # in seconds
 $sleeptime = 100
-$checktime = '21:59:57'
+$checktime = '10:38:00'
 $chromeTimeout = 600000;
-$pollTimeout = 4000
+$pollTimeout = 5000
 
 
 if ARGV.length == 0
@@ -33,11 +33,11 @@ $dir_name = "logs/#{Time.now.strftime("%d-%m-%Y")}"
 
 def runCmd(user, passwd, course, seq, starttime,host,session)
   if host.downcase.include? 'aws'
-    "setsid /home/ubuntu/booking2/booking-swim.js --user=#{user} --password=#{passwd} --seq=#{seq} --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --pollTimeout=#{$pollTimeout} --checktime='#{$checktime}' --chrometimeout=#{$chromeTimeout} >#{host}-5-#{session} 2>&1 &"
+    "setsid /home/ubuntu/booking2/booking9-test.js --user=#{user} --password=#{passwd} --seq=#{seq} --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --pollTimeout=#{$pollTimeout} --checktime='#{$checktime}' --chrometimeout=#{$chromeTimeout} >#{host}-5-#{session} 2>&1 &"
   elsif host.downcase.include? 'pc'
-    "setsid /home/praphan/booking2/booking-swim-pc.js --user=#{user} --password=#{passwd} --seq=#{seq} --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --pollTimeout=#{$pollTimeout} --checktime='#{$checktime}' --chrometimeout=#{$chromeTimeout} >#{host}-5-#{session} 2>&1 &"
+    "setsid /home/praphan/booking2/booking9-pc.js --user=#{user} --password=#{passwd} --seq=#{seq} --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --pollTimeout=#{$pollTimeout} --checktime='#{$checktime}' --chrometimeout=#{$chromeTimeout} >#{host}-5-#{session} 2>&1 &"
   else
-    "nohup ~/booking2/booking-swim.js --user=#{user} --password=#{passwd} --seq='#{seq}' --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --pollTimeout=#{$pollTimeout} --checktime='#{$checktime}' --chrometimeout=#{$chromeTimeout} >#{host}-5-#{session} 2>&1 &"
+    "nohup ~/booking2/booking9-test.js --user=#{user} --password=#{passwd} --seq='#{seq}' --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --pollTimeout=#{$pollTimeout} --checktime='#{$checktime}' --chrometimeout=#{$chromeTimeout} >~/Dropbox/booking/#{host}-5-#{session} 2>&1 &"
   end
 end
 
@@ -62,7 +62,7 @@ courses.each_with_index do |(key, value), index|
       el.each { |user, course, seq|
         starttime = starttimeS.strftime('%k:%M:%S')
         starttimeS += delay
-        puts "#{user} #{seq} #{course}"
+        puts "#{user} #{seq} #{course} #{starttime}"
         courses.push([user, passwd[user.to_s], course, seq, starttime])
       }
       booking key, session, courses
@@ -70,7 +70,7 @@ courses.each_with_index do |(key, value), index|
       user, course, seq = el
       starttime = starttimeS.strftime('%k:%M:%S')
       starttimeS += delay
-      puts "#{user} #{seq} #{course}"
+      puts "#{user} #{seq} #{course} #{starttime}"
       booking key, session, [[user, passwd[user.to_s], course, seq, starttime]]
     end
 
