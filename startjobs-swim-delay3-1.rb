@@ -3,15 +3,14 @@ require 'yaml'
 require './ssh-lib2.rb'
 require "time"
 
-starttimeS = Time.parse '00:11:00'
+starttimeS = Time.parse '00:00:30'
 
 delay = 25 # in seconds
 $sleeptime = 100
-$checktime = '03:00:00'
-# $chromeTimeout = 600000;
-$chromeTimeout = 30000;
+$checktime = '00:03:00'
+$chromeTimeout = 600000;
 $pollTimeout = 4000
-$retrycnt = 100
+
 
 if ARGV.length == 0
   jobs = 'jobs.yml'
@@ -41,7 +40,7 @@ def runCmd(user, passwd, course, seq, starttime,host,session)
   elsif host.downcase.include? 'pc'
     "setsid /home/praphan/booking2/booking-swim-pc.js --user=#{user} --password=#{passwd} --seq=#{seq} --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --pollTimeout=#{$pollTimeout} --checktime='#{$checktime}' --chrometimeout=#{$chromeTimeout} >#{host}-swim-5-#{session} 2>&1 &"
   else
-    "nohup ~/booking2/booking-swim3.js --user=#{user} --password=#{passwd} --seq='#{seq}' --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --pollTimeout=#{$pollTimeout} --checktime='#{$checktime}' --chrometimeout=#{$chromeTimeout} --retrycnt=#{$retrycnt} >~/Dropbox/booking/#{host}-swim-5-#{session} 2>&1 &"
+    "nohup ~/booking2/booking-swim3.js --user=#{user} --password=#{passwd} --seq='#{seq}' --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --pollTimeout=#{$pollTimeout} --checktime='#{$checktime}' --chrometimeout=#{$chromeTimeout} >~/Dropbox/booking/#{host}-swim-5-#{session} 2>&1 &"
   end
 end
 
