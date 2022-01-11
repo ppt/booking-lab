@@ -3,12 +3,14 @@ require 'yaml'
 require './ssh-lib2.rb'
 require "time"
 
-starttimeS = Time.parse '20:19:00'
+starttimeS = Time.parse '22:10:00'
 delay = 20 # in seconds
 $sleeptime = 100
-$checktime = '22:00:05'
-$chromeTimeout = 600000;
+$checktime = '22:09:30'
+# $chromeTimeout = 600000;
+$chromeTimeout = 30000;
 $pollTimeout = 5000
+$retrycnt = 30
 
 
 if ARGV.length == 0
@@ -36,11 +38,11 @@ $dir_name = "logs/#{Time.now.strftime("%d-%m-%Y")}"
 
 def runCmd(user, passwd, course, seq, starttime,host,session)
   if host.downcase.include? 'aws'
-    "setsid /home/ubuntu/booking2/booking9.js --user=#{user} --password=#{passwd} --seq=#{seq} --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --pollTimeout=#{$pollTimeout} --checktime='#{$checktime}' --chrometimeout=#{$chromeTimeout} >#{host}-5-#{session} 2>&1 &"
+    "setsid /home/ubuntu/booking2/booking9.js --user=#{user} --password=#{passwd} --seq=#{seq} --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --pollTimeout=#{$pollTimeout} --checktime='#{$checktime}' --chrometimeout=#{$chromeTimeout} --retrycnt=#{$retrycnt} >#{host}-5-#{session} 2>&1 &"
   elsif host.downcase.include? 'pc'
-    "setsid /home/praphan/booking2/booking9-pc.js --user=#{user} --password=#{passwd} --seq=#{seq} --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --pollTimeout=#{$pollTimeout} --checktime='#{$checktime}' --chrometimeout=#{$chromeTimeout} >#{host}-5-#{session} 2>&1 &"
+    "setsid /home/praphan/booking2/booking9-pc.js --user=#{user} --password=#{passwd} --seq=#{seq} --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --pollTimeout=#{$pollTimeout} --checktime='#{$checktime}' --chrometimeout=#{$chromeTimeout} --retrycnt=#{$retrycnt} >#{host}-5-#{session} 2>&1 &"
   else
-    "nohup ~/booking2/booking9.js --user=#{user} --password=#{passwd} --seq='#{seq}' --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --pollTimeout=#{$pollTimeout} --checktime='#{$checktime}' --chrometimeout=#{$chromeTimeout} >~/Dropbox/booking/#{host}-5-#{session} 2>&1 &"
+    "nohup ~/booking2/booking9.js --user=#{user} --password=#{passwd} --seq='#{seq}' --class-name='#{course.sub(' ','Space')}' --start-time='#{starttime}' --sleeptime=#{$sleeptime} --pollTimeout=#{$pollTimeout} --checktime='#{$checktime}' --chrometimeout=#{$chromeTimeout} --retrycnt=#{$retrycnt} >~/Dropbox/booking/#{host}-5-#{session} 2>&1 &"
   end
 end
 
